@@ -1,0 +1,47 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Library/STM32F4xx_StdPeriph_Driver/inc",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Library/CMSIS/Device/ST/STM32F4xx/Include",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Library/CMSIS/Include",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/User",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Devices",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Drivers",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Apps",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Devices/MPU",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Devices/MPU/DMP/driver/eMPL",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Devices/MPU/DMP/driver/include",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Devices/MPU/DMP/driver/stm32L",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Devices/MPU/DMP/mllite",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Devices/MPU/DMP/mpl",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Devices/MPU/DMP/eMPL-hal",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/Devices/IMU",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/FreeRTOS/include",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/FreeRTOS/portable/RVDS/ARM_CM4F",
+                "C:/Users/zhouzhanhong/Desktop/FreeRTOS Anshinin RMCODE/IFreeRTOS",
+                "C:/Keil_v5/ARM/Pack/MDK-Packs/Azure_IoT/1.0.0/c-utility/inc/azure_c_shared_utility",
+                "C:/Program Files (x86)/Microsoft Visual Studio/Include",
+                "C:/Keil_v5/ARM/Pack/MDK-Packs/Azure_IoT/1.0.0/c-utility/adapters",
+                "C:/Keil_v5/ARM/Pack/MDK-Packs/Azure_IoT/1.0.0/c-utility/pal/inc",
+                "C:/Keil_v5/Backup.003/ARM/ARMCC/include",
+                ""
+
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "USE_STDPERIPH_DRIVER",
+                "STM32F427_437xx",
+                "__CC_ARM"
+            ],
+            "compilerPath": "C:\\Program Files\\LLVM\\bin\\clang.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}
