@@ -215,7 +215,7 @@ void USART1_IRQHandler(void)
 
 void USART2_IRQHandler(void)
 {
-		DMA_Cmd(USART2_RX_DMA_STREAM, DISABLE);
+	DMA_Cmd(USART2_RX_DMA_STREAM, DISABLE);
 		
 	//	uint16_t DMA_Counter = DMA_GetCurrDataCounter(USART2_RX_DMA_STREAM);
 		

@@ -54,7 +54,7 @@ void TIM6_CounterMode(u16 prescaler, u16 period)
     TIM_ITConfig(TIM6, TIM_IT_Update, ENABLE);
 
     /*NVIC优先级设置*/
-    NVIC_Config(TIM6_DAC_IRQn, 1, 0);
+    NVIC_Config(TIM6_DAC_IRQn, 9, 0);
 		
 }
 
@@ -85,7 +85,7 @@ void TIM7_CounterMode(u16 prescaler, u16 period)
 	
 	TIM_ITConfig(TIM7, TIM_IT_Update, ENABLE);
 	
-	NVIC_Config(TIM7_IRQn, 0, 1);
+	NVIC_Config(TIM7_IRQn, 6, 0);
 	
 }
 

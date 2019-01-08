@@ -4,7 +4,10 @@
 extern int cv_x,cv_y;
 int main(void)
 {
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+	/*抢占0到15，比较0*/
+	/*由于使用FreeRTOS系统，最高的优先级只能到5，所以范围是5到15*/
+	/*目前已经更改了中断优先级调整，请务必不要随便的乱改！*/
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 	/*启动自瞄*/
 	
 	USART2_QuickInit(115200);

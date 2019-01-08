@@ -80,7 +80,7 @@ void USART1_QuickInit(uint32_t USART_BaudRate)
     USART_Init(USART1, &USART_InitStructure);
 
     /* 串口中断优先级配置 */
-    NVIC_Config(USART1_IRQn, 0, 2);
+    NVIC_Config(USART1_IRQn, 7, 0);
 
     /* 使能串口接收中断 */
     //USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
@@ -240,7 +240,7 @@ void USART2_QuickInit(uint32_t USART_BaudRate)
 	USART_Init(USART2, &USART_InitStructure); 
 	
 	/* 串口中断优先级配置 */
-	NVIC_Config(USART2_IRQn, 0, 3);
+	NVIC_Config(USART2_IRQn, 8, 0);
   
 	/* 使能串口接收中断 */
 	//USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
@@ -386,7 +386,7 @@ void USART3_QuickInit(uint32_t USART_BaudRate)
 	USART_Init(USART3, &USART_InitStructure); 
 	
 	/* 串口中断优先级配置 */
-	NVIC_Config(USART3_IRQn, 0, 3);
+	NVIC_Config(USART3_IRQn, 8, 0);
   
 	/* 使能串口接收中断 */
 //	USART_ITConfig(USART3, USART_IT_RXNE, ENABLE);

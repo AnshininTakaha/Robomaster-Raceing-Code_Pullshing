@@ -105,7 +105,7 @@ void CAN1_QuickInit(void)
     CAN_FilterInit(&CAN_FilterInitStructure);
 
     /*NVICÖÐ¶Ï*/
-    NVIC_Config(CAN1_RX0_IRQn, 1, 1);
+    NVIC_Config(CAN1_RX0_IRQn, 10, 0);
 
     CAN_ITConfig(CAN1, CAN_IT_FMP0, ENABLE);
 }
