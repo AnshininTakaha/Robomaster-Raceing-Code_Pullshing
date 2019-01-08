@@ -1,0 +1,34 @@
+
+T21C8 000:555 SEGGER J-Link V5.10m Log File (0003ms, 0311ms total)
+T21C8 000:555 DLL Compiled: Feb 15 2016 18:47:57 (0003ms, 0311ms total)
+T21C8 000:555 Logging started @ 2018-07-21 09:39 (0004ms, 0312ms total)
+T21C8 000:559 JLINK_SetWarnOutHandler(...) (0000ms, 0312ms total)
+T21C8 000:559 JLINK_OpenEx(...)
+Firmware: J-Link ARM V8 compiled Nov 28 2014 13:44:46
+Hardware: V8.00
+S/N: 1631096674
+Feature(s): RDI,FlashDL,FlashBP,JFlash,GDBFULL  returns O.K. (0303ms, 0615ms total)
+T21C8 000:862 JLINK_SetErrorOutHandler(...) (0000ms, 0615ms total)
+T21C8 000:862 JLINK_ExecCommand("ProjectFile = "C:\Users\yaoqinhuahua\Desktop\STM32F427工程模板 -键盘鼠标和其他-6-27\USER\JLinkSettings.ini"", ...)Device "ARM7" selected.  returns 0x00 (0005ms, 0620ms total)
+T21C8 000:867 JLINK_ExecCommand("Device = STM32F427IIHx", ...)Device "ARM7" selected.  returns 0x00 (0001ms, 0621ms total)
+T21C8 000:868 JLINK_ExecCommand("DisableConnectionTimeout", ...)  returns 0x01 (0000ms, 0621ms total)
+T21C8 000:868 JLINK_GetHardwareVersion()  returns 0x13880 (0000ms, 0621ms total)
+T21C8 000:868 JLINK_GetDLLVersion()  returns 51013 (0000ms, 0621ms total)
+T21C8 000:868 JLINK_GetFirmwareString(...) (0000ms, 0621ms total)
+T21C8 000:868 JLINK_GetDLLVersion()  returns 51013 (0000ms, 0621ms total)
+T21C8 000:868 JLINK_GetCompileDateTime() (0000ms, 0621ms total)
+T21C8 000:868 JLINK_GetFirmwareString(...) (0000ms, 0621ms total)
+T21C8 000:868 JLINK_GetHardwareVersion()  returns 0x13880 (0000ms, 0621ms total)
+T21C8 000:868 JLINK_TIF_Select(JLINKARM_TIF_JTAG)  returns 0x00 (0002ms, 0623ms total)
+T21C8 000:870 JLINK_SetSpeed(20000) (0000ms, 0623ms total)
+T21C8 000:871 JLINK_SetResetType(JLINKARM_RESET_TYPE_NORMAL)  returns JLINKARM_RESET_TYPE_NORMAL (0000ms, 0623ms total)
+T21C8 000:871 JLINK_Reset() >0x2F8 JTAG>
+  ***** Error: Communication timed out: Requested 96 bytes, received 0 bytes !
+  ***** Error: Could not transfer JTAG data.TotalIRLen = ?, IRPrint = 0x..000000000000000000000000JLINK_GetIdData(...) (0000ms, 5609ms total)
+T21C8 005:857 JLINK_GetIdData(...) (0000ms, 5609ms total)
+T21C8 005:861 JLINK_GetFirmwareString(...) (0000ms, 5609ms total)
+T20CC 005:861 
+  ***** Error: Connection to emulator lost! (0059ms, 5668ms total)
+T21C8 015:054 JLINK_Close() (0001ms, 5610ms total)
+T21C8 015:054  (0001ms, 5610ms total)
+T21C8 015:054 Closed (0001ms, 5610ms total)
