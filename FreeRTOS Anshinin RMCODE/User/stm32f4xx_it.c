@@ -210,9 +210,11 @@ void USART1_IRQHandler(void)
   * @retval None
   */
 	int cv_x,cv_y;
+	int x_ILF,y_ILF;
 	int last_cv_x,last_cv_y;
   int point_S = 0; 
-
+	int HC_X,HC_Y;
+	int Vison_Counter;
 void USART2_IRQHandler(void)
 {
 	DMA_Cmd(USART2_RX_DMA_STREAM, DISABLE);
@@ -224,67 +226,105 @@ void USART2_IRQHandler(void)
 	{
 		if(sscanf(CV_RXBUFF, "S%d,%d", &x,&y) == 2)//扫描有效数值为2
 		{
-			if(abs(x)>0 && abs(x)<=30)
+			/*出镜累积*/
+			Vison_Counter =0;
+
+			if(abs(x) < 10)
 			{
-				Cloud.YAW_Speed_pid.Kp = -73.0f;
+				x = 0;
 			}
-			else if(abs(x)>30 && abs(x)<=50)
+			if(abs(y) < 10)
 			{
-				Cloud.YAW_Speed_pid.Kp = -76.0f;
+				y = 0;
 			}
-			else if(abs(x)>50 && abs(x)<=70)
+
+			if(abs(x)>10 && abs(x)<=20)
 			{
-				Cloud.YAW_Speed_pid.Kp = -77.0f;
+				Cloud.YAW_Attitude_pid.Kp = -1.2;
+				Cloud.YAW_Attitude_pid.Ki = -4.7;
+				Cloud.YAW_Attitude_pid.Kd = -0.6;
 			}
-			else if(abs(x)>70 && abs(x)<=90)
+			else if(abs(x)>20 && abs(x)<=30)
 			{
-				Cloud.YAW_Speed_pid.Kp = -78.0f;
+				Cloud.YAW_Attitude_pid.Kp = -1.24;
+				Cloud.YAW_Attitude_pid.Kp = -4.7;
+				Cloud.YAW_Attitude_pid.Kd = -0.6;
 			}
-			else if(abs(x)>90 && abs(x)<=110)
+			else if(abs(x)>30 && abs(x)<=60)
 			{
-				Cloud.YAW_Speed_pid.Kp = -79.0f;
+				Cloud.YAW_Attitude_pid.Kp = -1.28;
+				Cloud.YAW_Attitude_pid.Ki = -4.6;
+				Cloud.YAW_Attitude_pid.Kd = -0.6;
+			}
+			else if(abs(x)>60 && abs(x)<=100)
+			{
+				Cloud.YAW_Attitude_pid.Kp = -1.32;
+				Cloud.YAW_Attitude_pid.Ki = -4.6;
+				Cloud.YAW_Attitude_pid.Kd = -0.6;
+			}
+			else if(abs(x)>100 && abs(x)<=150)
+			{
+				Cloud.YAW_Attitude_pid.Kp = -1.36;
+				Cloud.YAW_Attitude_pid.Ki = -4.55;
+				Cloud.YAW_Attitude_pid.Kd = -0.6;
 			}
 			else
 			{
-				Cloud.YAW_Speed_pid.Kp = -80.0f;
+				Cloud.YAW_Attitude_pid.Kp = -1.38;
+				Cloud.YAW_Attitude_pid.Ki = -3.55;
+				Cloud.YAW_Attitude_pid.Kd = -0.6;
 			}
 	
+			
 				
-			if(abs(y)>0 && abs(y)<=30)
+			if(abs(y)>10 && abs(y)<=20)
 			{
-				Cloud.Roll_Speed_pid.Kp = -22.0f;
+				RM6623s[1].pid_speed.Kp = -4.9;
+				RM6623s[1].pid_speed.Ki = -3.0;
 			}
-			else if(abs(y)>30 && abs(y)<=50)
+			else if(abs(y)>20 && abs(y)<=30)
 			{
-				Cloud.Roll_Speed_pid.Kp = -23.5f;
+				RM6623s[1].pid_speed.Kp = -5.0;
+				RM6623s[1].pid_speed.Ki = -2.8;
 			}
-			else if(abs(y)>50 && abs(y)<=70)
+			else if(abs(y)>30 && abs(y)<=60)
 			{
-				Cloud.Roll_Speed_pid.Kp = -25.0f;
+				RM6623s[1].pid_speed.Kp = -5.2;
+				RM6623s[1].pid_speed.Ki = -2.6;
 			}
-			else if(abs(y)>70 && abs(y)<=90)
+			else if(abs(y)>60 && abs(y)<=100)
 			{
-				Cloud.Roll_Speed_pid.Kp = -26.5f;
+				RM6623s[1].pid_speed.Kp = -5.4;
+				RM6623s[1].pid_speed.Ki = -2.4;
 			}
-			else if(abs(y)>90 && abs(y)<=110)
+			else if(abs(y)>100 && abs(y)<=150)
 			{
-				Cloud.Roll_Speed_pid.Kp = -28.0f;
+				RM6623s[1].pid_speed.Kp = -5.6;
+				RM6623s[1].pid_speed.Ki = -2.2;
 			}
-			else if(abs(y)>110 && abs(y)<=130)
+			else if(abs(y)>150 && abs(y)<=210)
 			{
-				Cloud.Roll_Speed_pid.Kp = -30.0f;
+				RM6623s[1].pid_speed.Kp = -5.8;
+				RM6623s[1].pid_speed.Ki = -2.0;
 			}
 			else
 			{
-				Cloud.Roll_Speed_pid.Kp = -31.0f;
+				RM6623s[1].pid_speed.Kp = -6.0;
+				RM6623s[1].pid_speed.Ki = -1.8;
 			}
-
-
+			
+			
+			
+			Filter_IIRLPFINT(&x,&x_ILF,0.6);
+			Filter_IIRLPFINT(&y,&y_ILF,0.4);
 			/*小摄像头窗口位置（640*480）*/
-			/*大摄像头窗口位置（1280*1024）*/
-			cv_x = x-640;
-			cv_y = y-512;
+			cv_x = x_ILF-320;
+			cv_y = y_ILF-240;
 
+			/*大摄像头窗口位置（1280*1024）*/
+			// cv_x = x-640;
+			// cv_y = y-512;
+			HC_X = HC_Y = 0;
 
 			/*扩展镜头写法*/	
 			last_cv_x = cv_x;
@@ -293,10 +333,22 @@ void USART2_IRQHandler(void)
 	}
 	else if(CV_RXBUFF[0] == 'N')
 	{
-		cv_x = last_cv_x;
+		if(Vison_Counter < 2000)
+		{
+		HC_X = last_cv_x;
+		HC_Y = last_cv_y;
+		cv_x = last_cv_x/1.5;
 		cv_y= last_cv_y;
+		Vison_Counter++;
+		}
+		else
+		{
+			cv_x = 0;
+			cv_y = 0;
+			
+		}
 	}
-	
+//	
 		
 		
 	//设置中断长度
@@ -327,7 +379,8 @@ void USART3_IRQHandler(void)
 		
 		uint16_t DMA_Counter = DMA_GetCurrDataCounter(USART3_RX_DMA_STREAM);
 		
-		GY_IMU_getInfo(Cloud_GY_IMU_RXBUFF, GY_IMU_BUFFSIZE-DMA_Counter, &Cloud_IMU);
+		GY_IMU_getInfo(Cloud_GY_IMU_RXBUFF, GY_IMU_BUFFSIZE-DMA_Counter, \
+		&Cloud_IMU);
 		
 		
 		//设置总接受长度
@@ -400,7 +453,8 @@ void TIM6_DAC_IRQHandler(void)
 			switch(GetSwitch_Mode())
 			{
 				case Status_ControlOFF:
-					
+					last_cv_x = 0;
+					last_cv_y = 0;
 					break;
 				
 				/*****************RC*******************/
@@ -435,6 +489,8 @@ void TIM6_DAC_IRQHandler(void)
 					/*自瞄*/
 						Cloud_delta_Yaw += cv_x/3;
 						Cloud_delta_Pitch += cv_y/6;
+						HC_X = Cloud_delta_Yaw;
+						HC_Y = Cloud_delta_Pitch;
 						cv_x = 0;
 						cv_y = 0;
 

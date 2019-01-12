@@ -26,7 +26,7 @@ void ANO_Send_Data_V1(int16_t Temp_Target1,int16_t Temp_Now1,int16_t Temp_Target
 	send_buf[13]=data_sum;
 	for(i=0;i<14;i++)
 	{
-	USART_SendData(USART2,send_buf[i]);
+		USART_sendChar(USART2,send_buf[i]);
 	}
 
 }
@@ -111,7 +111,7 @@ void ANO_Send_Data_V3(int16_t Temp_Target1,int16_t Temp_Now1,int16_t Temp_Target
 	send_buf[cout++]=0xAA;
 	send_buf[cout++]=0x01;
 	send_buf[cout++]=0xAF;
-	send_buf[cout++]=0xF1;
+	send_buf[cout++]=0x02;
 	send_buf[cout++]=0;
 	send_buf[cout++]=Temp_Target1>>8;
 	send_buf[cout++]=Temp_Target1;
@@ -130,7 +130,7 @@ void ANO_Send_Data_V3(int16_t Temp_Target1,int16_t Temp_Now1,int16_t Temp_Target
 	
 	for(i=0;i<cout;i++)
 	{
-	USART_SendData(USART2,send_buf[i]);
+	USART_sendChar(USART2,send_buf[i]);
 	}
 
 

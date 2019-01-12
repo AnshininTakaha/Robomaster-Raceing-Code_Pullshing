@@ -27,20 +27,16 @@ Project File Date:  01/06/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'STM32F427IIHx'
-compiling TIM.c...
+compiling stm32f4xx_it.c...
 ..\..\Apps\Galvanometer.h(15): warning:  #1-D: last line of file ends without a newline
   #endif
-..\..\Drivers\TIM.c: 1 warning, 0 errors
-compiling CAN.c...
-..\..\Apps\Galvanometer.h(15): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\..\Drivers\CAN.c: 1 warning, 0 errors
-compiling USART.c...
-..\..\Apps\Galvanometer.h(15): warning:  #1-D: last line of file ends without a newline
-  #endif
-..\..\Drivers\USART.c: 1 warning, 0 errors
+..\..\User\stm32f4xx_it.c(227): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *restrict"
+  		if(sscanf(CV_RXBUFF, "S%d,%d", &x,&y) == 2)//扫描有效数值为2
+..\..\User\stm32f4xx_it.c(438): warning:  #177-D: variable "apo"  was declared but never referenced
+  	int apo = 0;
+..\..\User\stm32f4xx_it.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=28396 RO-data=1124 RW-data=192 ZI-data=3024  
+Program Size: Code=28924 RO-data=1124 RW-data=216 ZI-data=3024  
 FromELF: creating hex file...
 ".\Objects\RoboMaster.axf" - 0 Error(s), 3 Warning(s).
 
@@ -56,7 +52,7 @@ Package Vendor: Keil
   C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:06
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

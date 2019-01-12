@@ -12,7 +12,7 @@ extern GY_IMU_t Cloud_IMU;
 #define Cloud_Yaw_Center		3895.0f
 #define Cloud_Yaw_delta			(Cloud_Yaw_Max - Cloud_Yaw_Min)
 
-#define Cloud_Pitch_Min			2951.0f
+#define Cloud_Pitch_Min			3900.0f
 #define Cloud_Pitch_Max			4650.0f
 #define Cloud_Pitch_Center	4100.0f
 #define Cloud_Pitch_delta		(Cloud_Pitch_Max - Cloud_Pitch_Min)

@@ -469,6 +469,12 @@ void USART3_RXDMA_Config(uint32_t USART3_DMABuff_addr, uint32_t buffsize)
 
 
 
+void USART_sendChar(USART_TypeDef* USARTx,char ch)
+{
+	USART_SendData(USARTx, (uint8_t) ch);
+	 while (USART_GetFlagStatus(Using_USART, USART_FLAG_TXE) == RESET);
+}
+
 
 
 /**

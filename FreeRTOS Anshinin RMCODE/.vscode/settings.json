@@ -4,7 +4,9 @@
         "users.h": "c",
         "arm_math.h": "c",
         "coordinate.h": "c",
-        "ano.h": "c"
+        "ano.h": "c",
+        "cloud_control.h": "c",
+        "filter.h": "c"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

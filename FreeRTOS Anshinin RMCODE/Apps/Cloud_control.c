@@ -13,16 +13,16 @@ GY_IMU_t Cloud_IMU;
   * @Data    2018-11-06
  **/
 /* -------------------------------- end -------------------------------- */
-
+float Calulations;
 void Cloud_Init(void)
 {
     /*滤波系数设置*/
     Cloud.Filter_LPFfactor = Cloud_LpfAttFactor;
 
     /*防止圈数读取的时候出问题*/
-//	RM6623s[0].turnCount = 0;
-//	RM6623s[1].turnCount = 0;
-    Cloud_IMU.turnCount = 0;
+	// RM6623s[0].turnCount = 0;
+	// RM6623s[1].turnCount = 0;
+    // Cloud_IMU.turnCount = 0;
 
 
     /**************************机械控制***************************/
@@ -30,7 +30,7 @@ void Cloud_Init(void)
     /*机械角度闭环初始化*/
     Cloud.Yaw_Raw = Cloud.Yaw_LPF = RM6623s[0].totalAngle;
     Cloud.Pitch_Raw = Cloud.Pitch_LPF = RM6623s[1].totalAngle;
-
+    // Cloud.Pitch_Raw = Cloud.Pitch_LPF = Cloud_Pitch_Center;
 
     /*YAW轴PID初始化*/
     PositionPID_Init(&RM6623s[0].pid_speed,-10.0f, 0.0f, 0.0f, 4000, 0);
@@ -47,8 +47,8 @@ void Cloud_Init(void)
     Cloud.IMUPitch_Raw = Cloud.IMUPitch_LPF = Cloud_IMU.eular.roll;
 
     /*Yaw*/
-    PositionPID_Init(&Cloud.YAW_Attitude_pid, -1.5f, 0.0f, 0.0f, 500, 0);
-    PositionPID_Init(&Cloud.YAW_Speed_pid, -75.0f, 0.0f, -49.5f, 4000, 0);
+    PositionPID_Init(&Cloud.YAW_Attitude_pid,  -1.309038f, -2.5f, -0.5f, 500, 0);
+    PositionPID_Init(&Cloud.YAW_Speed_pid, -60.0f, 0.0f, -48.0, 4000, 0);
 
     /*Pitch*/
     PositionPID_Init(&Cloud.Roll_Attitude_pid,-2.0f, 0.0f, 0.0f, 500, 0);
@@ -65,7 +65,7 @@ void Double_Cloud_process(float Delta_YAW,float Delta_Ptich,uint8_t switchmode)
     if(switchmode == Status_ControlOFF || Cloud_IMU.OFFLINE_SET)
     {
         Cloud_shift_point = 1;
-        ForceSetting_YAWIMUCloudpointing(Cloud_IMU.totalYaw,Cloud_IMU.eular.roll);
+        ForceSetting_YAWIMUCloudpointing(Cloud_IMU.totalYaw,Cloud_IMU.eular.yaw);
         Cloud.Pitch_LPF = Cloud.Pitch_Raw = Cloud_Pitch_Center;
         Cloud_And_Emitter_CurrentSetting(0,0,0,0);
         return;
@@ -139,12 +139,12 @@ void Double_Cloud_process(float Delta_YAW,float Delta_Ptich,uint8_t switchmode)
 
         float M6623s_YawOPIDOut;
         //PID计算
-
+				
         //角度PID计算(外环)
         M6623s_YawOPIDOut = PositionPID_Calculation(&Cloud.YAW_Attitude_pid, Cloud.IMUYaw_LPF, Cloud_IMU.totalYaw);
         //速度PID计算(内环)
         RM6623s[0].outCurrent = PositionPID_Calculation(&Cloud.YAW_Speed_pid, M6623s_YawOPIDOut, Cloud_IMU.gyro.z);
-
+				Calulations = M6623s_YawOPIDOut;
         //M6623s[0].outCurrent = Position_PID(&Cloud.YawAttitude_pid, Cloud.IMUtargetYawLPF, Cloud_IMU.totalYaw);
         //清标志位
         RM6623s[0].UpdateFlag = 0;

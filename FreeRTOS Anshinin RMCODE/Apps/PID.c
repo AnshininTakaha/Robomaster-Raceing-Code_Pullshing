@@ -178,7 +178,7 @@ int IncrementalPID_Calculation(incrementalpid_st *pid, float target, float measu
     pid->beforelast_error = pid->last_error;
     pid->last_error = pid->error;
 
-    return (int)pid->PWM;
+    return pid->PWM;
 
 }
 
@@ -200,16 +200,19 @@ int PositionPID_Calculation(positionpid_st *pid, float target, float measured)
 
     pid->Target = (float)target;
     pid->Measured = (float)measured;
-
     pid->error = pid->Target - pid->Measured;
 
+		if(abs(pid->error) < 20)
+		{
+			pid->Add_error += pid->error;
+		}
     /*抖动消除*/
-    if(abs_Calculation(pid->error) < 0.2f )
+    if(abs_Calculation(pid->error) < 0.5f )
     {
         pid->error = 0.0f;
     }
 
-    pid->Add_error += pid->error;
+    
 
     /*位置式PID计算*/
     kp_output = pid->Kp * pid->error;
@@ -224,5 +227,5 @@ int PositionPID_Calculation(positionpid_st *pid, float target, float measured)
 
     pid->last_error = pid ->error;
 
-    return (int)pid->PWM;
+    return pid->PWM;
 }

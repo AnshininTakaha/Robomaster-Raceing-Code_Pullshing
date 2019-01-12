@@ -79,6 +79,7 @@ int fputc(int ch, FILE *f);
 
 /*重定向c库函数scanf到串口，重写向后可使用scanf、getchar等函数*/
 int fgetc(FILE *f);
-
+/*ANO发送*/
+void USART_sendChar(USART_TypeDef* USARTx,char ch);
 
 #endif
