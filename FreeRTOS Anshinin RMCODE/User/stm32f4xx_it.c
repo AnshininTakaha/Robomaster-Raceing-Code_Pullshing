@@ -213,6 +213,8 @@ void USART1_IRQHandler(void)
 	int x_ILF,y_ILF;
 	int last_cv_x,last_cv_y;
 	int HC_X,HC_Y;
+  int text = 0;
+	int NControl;
 void USART2_IRQHandler(void)
 {
 	DMA_Cmd(USART2_RX_DMA_STREAM, DISABLE);
@@ -220,7 +222,7 @@ void USART2_IRQHandler(void)
 	//	uint16_t DMA_Counter = DMA_GetCurrDataCounter(USART2_RX_DMA_STREAM);
 		
 	int x,y;
-	int NControl;
+//	int NControl;
 	if(CV_RXBUFF[0] == 'S')
 	{
 		if(sscanf(CV_RXBUFF, "S%d,%d", &x,&y) == 2)//扫描有效数值为2
@@ -279,6 +281,7 @@ void USART2_IRQHandler(void)
 			{
 				RM6623s[1].pid_speed.Kp = -4.9;
 				RM6623s[1].pid_speed.Ki = -3.0;
+				RM6623s[1].pid_speed.Kd = -20.0;
 			}
 			else if(abs(y)>20 && abs(y)<=30)
 			{
@@ -312,17 +315,20 @@ void USART2_IRQHandler(void)
 			}
 			
 			
-			
+/*小摄像头窗口位置（640*480）*/
 			Filter_IIRLPFINT(&x,&x_ILF,0.6);
 			Filter_IIRLPFINT(&y,&y_ILF,0.4);
-			/*小摄像头窗口位置（640*480）*/
+
 			cv_x = x_ILF-320;
 			cv_y = y_ILF-240;
 
-			/*大摄像头窗口位置（1280*1024）*/
-			// cv_x = x-640;
-			// cv_y = y-512;
-			HC_X = HC_Y = 0;
+/*大摄像头窗口位置（1280*1024）*/
+//			Filter_IIRLPFINT(&x,&x_ILF,0.6);
+//			Filter_IIRLPFINT(&y,&y_ILF,0.4);
+//			
+//			cv_x = x_ILF-640;
+//			cv_y = y_ILF-512;
+//			HC_X = HC_Y = 0;
 
 			/*扩展镜头写法*/	
 			last_cv_x = cv_x;
@@ -332,46 +338,26 @@ void USART2_IRQHandler(void)
 	else if(CV_RXBUFF[0] == 'N')
 	{
 		
-	    if(sscanf(CV_RXBUFF, "N%d", &NControl) == 1)
+	  if(sscanf(CV_RXBUFF, "N%d", &NControl) == 1)
 		{
-			 switch(NControl)
-			 {
-				case 1:/*中间消失*/
+			
+			if(NControl == 1000000)
+			{
 				cv_x = 0;
 				cv_y = 0;
-				break;
-
-				case 2:/*左出镜*/
-				cv_x = 3;
+			}
+			else if(NControl == 2000000)
+			{
+				cv_x = -25;
 				cv_y = 0;
-				break;
-
-				case 3:/*右出境*/
-				cv_x = -3;
+				text = 1;
+			}
+			else if(NControl == 3000000)
+			{
+				cv_x = 25;
 				cv_y = 0;
-				break;
-
-				default:
-				cv_x = 0;
-				cv_y = 0;
-				break;
-			 }
-
-
-
-
-
-
-
-
-
-		}
-			// {
-			// 	
-
-			// }
-			
-			
+			}
+		}	
 		
 	}
 
