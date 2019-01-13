@@ -212,9 +212,7 @@ void USART1_IRQHandler(void)
 	int cv_x,cv_y;
 	int x_ILF,y_ILF;
 	int last_cv_x,last_cv_y;
-  int point_S = 0; 
 	int HC_X,HC_Y;
-	int Vison_Counter;
 void USART2_IRQHandler(void)
 {
 	DMA_Cmd(USART2_RX_DMA_STREAM, DISABLE);
@@ -222,12 +220,12 @@ void USART2_IRQHandler(void)
 	//	uint16_t DMA_Counter = DMA_GetCurrDataCounter(USART2_RX_DMA_STREAM);
 		
 	int x,y;
+	int NControl;
 	if(CV_RXBUFF[0] == 'S')
 	{
 		if(sscanf(CV_RXBUFF, "S%d,%d", &x,&y) == 2)//扫描有效数值为2
 		{
-			/*出镜累积*/
-			Vison_Counter =0;
+			
 
 			if(abs(x) < 10)
 			{
@@ -333,18 +331,33 @@ void USART2_IRQHandler(void)
 	}
 	else if(CV_RXBUFF[0] == 'N')
 	{
-		if(Vison_Counter < 2000)
+		
+	    if(sscanf(CV_RXBUFF, "N%d", &NControl) == 1)
 		{
-		HC_X = last_cv_x;
-		HC_Y = last_cv_y;
-		cv_x = last_cv_x/1.5;
-		cv_y= last_cv_y;
-		Vison_Counter++;
-		}
-		else
-		{
-			cv_x = 0;
-			cv_y = 0;
+			switich(NControl)
+			{
+				case 1:/*中间消失*/
+				cv_x = 0;
+				cv_y = 0;
+				break;
+
+				case 2:/*左出镜*/
+				cv_x = 3;
+				cv_y = 0;
+				break;
+
+				case 3:/*右出境*/
+				cv_x = -3;
+				cv_y = 0;
+				break;
+
+				default:
+				cv_x = 0;
+				cv_y = 0;
+				break;
+
+			}
+			
 			
 		}
 	}

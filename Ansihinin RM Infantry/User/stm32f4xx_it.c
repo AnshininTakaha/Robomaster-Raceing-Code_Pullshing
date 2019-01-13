@@ -31,6 +31,10 @@
 #include "stm32f4xx_it.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "queue.h"
+#include "TaskUSART.h"
+#include "DR16.h"
+#include "USART.h"
 
 extern void xPortSysTickHandler( void );
 /** @addtogroup STM32F4xx_StdPeriph_Examples
@@ -176,19 +180,38 @@ void SysTick_Handler(void)
 }*/
 
 /**
-  * @brief  USART1中断服务函数【遥控器，鼠标控制等数据的处理】
+  * @brief  USART1�ж�
   * @param  None
   * @retval None
   */
-	//检查数据包是否传输完毕
 void USART1_IRQHandler(void)
 	{
-	
+	  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+
+    if(USART_GetITStatus(USART1, USART_IT_IDLE) != RESET)
+	  {
+		/*�ر�DMA*/
+		DMA_Cmd(USART1_RX_DMA_STREAM, DISABLE);
+		/*��ȡDMAbuffʣ���С���Ƿ�ƥ��*/
+		if (DMA_GetCurrDataCounter(USART1_RX_DMA_STREAM) == 2)
+		{
+			/*�Ӷ������淢������*/
+			xQueueSendFromISR(xUsart1RxQueue,&DR16_Buff,&xHigherPriorityTaskWoken);
+			portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+		}
+		
+		/*��DMA*/
+		DMA_Cmd(USART1_RX_DMA_STREAM, ENABLE);
+		/*��������жϱ�־λ*/
+		(void)USART1->DR;
+		(void)USART1->SR;
+
+	  }
 	}
 
 
 /**
-  * @brief  USART2中断服务函数【裁判系统】
+  * @brief  USART2�?�?服务函数【�?�判系统�?
   * @param  None
   * @retval None
   */
@@ -199,7 +222,7 @@ void USART2_IRQHandler(void)
 
 
 /**
-  * @brief  CAN1 FIFO0 接收中断服务函数
+  * @brief  CAN1 FIFO0 接收�?�?服务函数
   * @param  None
   * @retval None
   */
@@ -210,11 +233,11 @@ void CAN1_RX0_IRQHandler(void)
 
 
 /**
-  * @brief  TIM6 DAC 中断服务函数
+  * @brief  TIM6 DAC �?�?服务函数
   * @param  None
   * @retval None
   */
-void TIM6_DAC_IRQHandler(void)//各种模式对应的速度模型处理
+void TIM6_DAC_IRQHandler(void)//各�?�模式�?�应的速度模型处理
 {
 	
 }

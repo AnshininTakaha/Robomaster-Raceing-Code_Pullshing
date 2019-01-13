@@ -6,7 +6,16 @@
         "coordinate.h": "c",
         "ano.h": "c",
         "cloud_control.h": "c",
-        "filter.h": "c"
+        "filter.h": "c",
+        "taskinit.h": "c",
+        "can.h": "c",
+        "freertos.h": "c",
+        "led.h": "c",
+        "laser.h": "c",
+        "dr16.h": "c",
+        "taskusart.h": "c",
+        "mathing.h": "c",
+        "key.h": "c"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

@@ -81,9 +81,9 @@ void Analysis_getinfo(CanRxMsg RxMessage)
 
     case 0x401://电流计
         GalvanometerData.data.chassisVolt = (uint16_t)(RxMessage.Data[1]<<8 | RxMessage.Data[0]) / 100.0f;
-	    GalvanometerData.data.chassisCurrent = (uint16_t)(RxMessage.Data[3]<<8 | RxMessage.Data[2]) / 100.0f;
-	    GalvanometerData.data.chassisPower = (uint16_t)(RxMessage.Data[5]<<8 | RxMessage.Data[4]) / 100.0f;
-	    GalvanometerData.data.chassisPowerBuffer = (uint16_t)(RxMessage.Data[7]<<8 | RxMessage.Data[6]) / 100.0f;
+				GalvanometerData.data.chassisCurrent = (uint16_t)(RxMessage.Data[3]<<8 | RxMessage.Data[2]) / 100.0f;
+				GalvanometerData.data.chassisPower = (uint16_t)(RxMessage.Data[5]<<8 | RxMessage.Data[4]) / 100.0f;
+				GalvanometerData.data.chassisPowerBuffer = (uint16_t)(RxMessage.Data[7]<<8 | RxMessage.Data[6]) / 100.0f;
         Galvanometer_Dealing();
         GalvanometerData.UpdateFrame++;
         GalvanometerData.UpdateFlag = 1;//使用数值的时候会把这个位置置为0

@@ -48,3 +48,12 @@
 .\objects\stm32f4xx_it.o: ..\..\FreeRTOS\include\mpu_wrappers.h
 .\objects\stm32f4xx_it.o: ..\..\FreeRTOS\include\task.h
 .\objects\stm32f4xx_it.o: ..\..\FreeRTOS\include\list.h
+.\objects\stm32f4xx_it.o: ..\..\FreeRTOS\include\queue.h
+.\objects\stm32f4xx_it.o: ..\..\Task\TaskUSART.h
+.\objects\stm32f4xx_it.o: ..\..\Devices\DR16.h
+.\objects\stm32f4xx_it.o: ..\..\BSP\KEY.h
+.\objects\stm32f4xx_it.o: ..\..\BSP\USART.h
+.\objects\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\stm32f4xx_it.o: ..\..\BSP\NVIC.h
+.\objects\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\stm32f4xx_it.o: ..\..\BSP\mathing.h

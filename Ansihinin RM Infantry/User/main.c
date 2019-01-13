@@ -11,9 +11,17 @@
 *
 ********************************************************************************
 */
-
+#include "TaskInit.h"
 int main(void)
 {
+	/* 创建开始任务 */
+	xTaskCreate(TaskStart,           /* 任务函数  */        
+				"TaskStart",         /* 任务名    */      
+				512,       			      /* 任务栈大小*/  
+				NULL,                 /* 任务参数  */    
+				1,       			        /* 任务优先级*/
+				&StartTaskHandler);   /* 任务句柄  */ 
 	
+  /* 启动调度，开始执行任务 */
+	vTaskStartScheduler();
 }
-
