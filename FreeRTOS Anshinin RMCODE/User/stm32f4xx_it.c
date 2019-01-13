@@ -334,8 +334,8 @@ void USART2_IRQHandler(void)
 		
 	    if(sscanf(CV_RXBUFF, "N%d", &NControl) == 1)
 		{
-			switich(NControl)
-			{
+			 switch(NControl)
+			 {
 				case 1:/*中间消失*/
 				cv_x = 0;
 				cv_y = 0;
@@ -355,13 +355,26 @@ void USART2_IRQHandler(void)
 				cv_x = 0;
 				cv_y = 0;
 				break;
+			 }
 
-			}
-			
-			
+
+
+
+
+
+
+
+
 		}
+			// {
+			// 	
+
+			// }
+			
+			
+		
 	}
-//	
+
 		
 		
 	//设置中断长度

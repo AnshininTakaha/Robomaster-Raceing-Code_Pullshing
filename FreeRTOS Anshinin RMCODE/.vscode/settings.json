@@ -6,7 +6,10 @@
         "coordinate.h": "c",
         "ano.h": "c",
         "cloud_control.h": "c",
-        "filter.h": "c"
+        "filter.h": "c",
+        "stm32f4xx_it.h": "c",
+        "task.h": "c"
     },
-    "C_Cpp.intelliSenseEngineFallback": "Enabled"
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "C_Cpp.errorSquiggles": "Enabled"
 }
