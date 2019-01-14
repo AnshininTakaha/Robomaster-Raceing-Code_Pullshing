@@ -33,6 +33,7 @@
 #include "task.h"
 #include "queue.h"
 #include "TaskUSART.h"
+#include "TaskCAN.h"
 #include "DR16.h"
 #include "USART.h"
 
@@ -228,7 +229,15 @@ void USART2_IRQHandler(void)
   */
 void CAN1_RX0_IRQHandler(void)
 	{
-
+      CanRxMsg CAN1Feedback_Msg;	
+	    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+      if(CAN_GetITStatus(CAN1,CAN_IT_FMP0))
+      {
+          CAN_Receive(CAN1,CAN_FIFO0,&CAN1Feedback_Msg);
+          xQueueSendFromISR(xCan1RxQueue,&CAN1Feedback_Msg,&xHigherPriorityTaskWoken);
+          portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+          CAN_ClearITPendingBit(CAN1, CAN_IT_FMP0);
+      }
 	}
 
 

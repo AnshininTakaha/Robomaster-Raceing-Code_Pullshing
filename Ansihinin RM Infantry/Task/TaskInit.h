@@ -6,6 +6,9 @@
 #include "task.h"
 #include "queue.h"
 #include "TaskUSART.h"
+#include "TaskCAN.h"
+#include "TaskControl.h"
+
 
 #include "CAN.h"
 #include "LED.h"

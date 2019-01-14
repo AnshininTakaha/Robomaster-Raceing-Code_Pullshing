@@ -57,6 +57,12 @@
 .\objects\main.o: ..\..\BSP\NVIC.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\main.o: ..\..\BSP\mathing.h
+.\objects\main.o: ..\..\Task\TaskCAN.h
+.\objects\main.o: ..\..\Apps\Analysis.h
+.\objects\main.o: ..\..\Apps\PID.h
+.\objects\main.o: ..\..\BSP\mathing.h
+.\objects\main.o: ..\..\Task\TaskControl.h
+.\objects\main.o: ..\..\Devices\Devices_Flash.h
 .\objects\main.o: ..\..\BSP\CAN.h
 .\objects\main.o: ..\..\BSP\LED.h
 .\objects\main.o: ..\..\BSP\TIM.h

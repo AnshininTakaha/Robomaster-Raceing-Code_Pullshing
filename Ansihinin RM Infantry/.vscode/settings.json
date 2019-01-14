@@ -15,7 +15,15 @@
         "dr16.h": "c",
         "taskusart.h": "c",
         "mathing.h": "c",
-        "key.h": "c"
+        "key.h": "c",
+        "pid.h": "c",
+        "stm32f4xx.h": "c",
+        "stm32f4xx_conf.h": "c",
+        "usart.h": "c",
+        "delay.h": "c",
+        "taskcan.h": "c"
     },
-    "C_Cpp.intelliSenseEngineFallback": "Enabled"
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "C_Cpp.errorSquiggles": "Enabled",
+    "C_Cpp.default.cStandard": "c99"
 }

@@ -6,12 +6,15 @@ DR16_t DR16;
 rocker_t rocket_Left,rocket_Right;
 
 /*作为电脑控制的时候的结构体*/
-rocker_t rocket_pc;
+rocker_t pcRocket;
 
 /*键盘按键的判断结构体*/
 Key_st keyBorad;
 Key_st MouseKeyLeft;
 Key_st MouseKeyRight;
+
+/*模式*/
+
 /**
 * @name DR16_Init
 * @brief 初始化DR16遥控器
@@ -25,7 +28,7 @@ void DR16_Init(void)
 }
 /**
 * @name DR16_Process
-* @brief DR16遥控器函数解码
+* @brief DR16遥控器函数解码z
 * @param [in]uint8_t *pData 需要解码的指针
 * @retval 
 */
@@ -74,7 +77,9 @@ void DR16_Process(uint8_t *pData)
 	DR16_Key_Whether_Process(DR16.mouse.keyRight,&MouseKeyRight);
 	DR16_Key_Whether_Process(DR16.keyBoard.key_code,&keyBorad);
 
-	
+	DR16.UpdateFrame++;
+//	Chassis.modeswitch = DR16.rc.s_right;
+//	Cloud.modeswitch = DR16.rc.s_right;
 }
 /**
 * @name Data_Suppres
@@ -111,6 +116,7 @@ void Rocker_Stander(float positionX, float positionY, rocker_t *rocket)
         rocket -> distance = -rocket -> distance;
     }
 }
+
 
 
 

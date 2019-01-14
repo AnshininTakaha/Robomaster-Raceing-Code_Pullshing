@@ -40,6 +40,12 @@ else if((val) >= (max))\
 /*绝对值计算*/
 float abs_Calculation(float myabs);
 
+/*Ki限幅*/
+void Ki_Limiting(float *KI_OUT,float MAXER);
+
+/*PWM限幅*/
+void Output_Limting(float *Output, float MAXER);
+
 
 
 

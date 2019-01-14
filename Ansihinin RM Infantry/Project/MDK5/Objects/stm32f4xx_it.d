@@ -57,3 +57,7 @@
 .\objects\stm32f4xx_it.o: ..\..\BSP\NVIC.h
 .\objects\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\stm32f4xx_it.o: ..\..\BSP\mathing.h
+.\objects\stm32f4xx_it.o: ..\..\Task\TaskCAN.h
+.\objects\stm32f4xx_it.o: ..\..\Apps\Analysis.h
+.\objects\stm32f4xx_it.o: ..\..\Apps\PID.h
+.\objects\stm32f4xx_it.o: ..\..\BSP\mathing.h

@@ -85,10 +85,31 @@ typedef struct
     float distance;
 } rocker_t;
 
+/*遥控器模式*/
+typedef enum
+{
+  Status_ControlByRC = 3,
+  Status_ControlByPC = 1,
+  Status_ControlOFF = 2,
+} MODE_e;
+
+/*PC电脑对应模式*/
+typedef enum
+{
+	Mode_STOP_Mode = 0,
+	Mode_Chassiscal_NoneHead = 1, 
+	Mode_Cloud_PlatformFollowing = 2,
+	Mode_Supply_StationMode = 3,
+	Mode_Auto_firing = 4,
+}PC_Controling_e;
 
 extern uint8_t DR16_Buff[18u+2]; 
 extern DR16_t DR16;
-
+extern rocker_t rocket_Left,rocket_Right;
+extern rocker_t pcRocket;
+extern Key_st keyBorad;
+extern Key_st MouseKeyLeft;
+extern Key_st MouseKeyRight;
 
 /*DR16初始化*/
 void DR16_Init(void);
@@ -102,7 +123,10 @@ int Data_Suppres(int16_t data);
 /*单个遥控杆的数值传递*/
 void Rocker_Stander(float positionX, float positionY, rocker_t *rocket);
 
-
+/*数值传递*/
+int GetSwitch_ModeChassis(void);
+int GetSwitch_ModeCloud(void);
+int GetSwitch_Mode(void);
 
 
 

@@ -57,6 +57,12 @@
 .\objects\taskinit.o: ..\..\BSP\NVIC.h
 .\objects\taskinit.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\taskinit.o: ..\..\BSP\mathing.h
+.\objects\taskinit.o: ..\..\Task\TaskCAN.h
+.\objects\taskinit.o: ..\..\Apps\Analysis.h
+.\objects\taskinit.o: ..\..\Apps\PID.h
+.\objects\taskinit.o: ..\..\BSP\mathing.h
+.\objects\taskinit.o: ..\..\Task\TaskControl.h
+.\objects\taskinit.o: ..\..\Devices\Devices_Flash.h
 .\objects\taskinit.o: ..\..\BSP\CAN.h
 .\objects\taskinit.o: ..\..\BSP\LED.h
 .\objects\taskinit.o: ..\..\BSP\TIM.h

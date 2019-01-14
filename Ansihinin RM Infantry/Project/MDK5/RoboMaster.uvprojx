@@ -417,10 +417,17 @@
               <FileType>1</FileType>
               <FilePath>..\..\Task\TaskUSART.c</FilePath>
             </File>
+            <File>
+              <FileName>TaskCAN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Task\TaskCAN.c</FilePath>
+            </File>
+            <File>
+              <FileName>TaskControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Task\TaskControl.c</FilePath>
+            </File>
           </Files>
-        </Group>
-        <Group>
-          <GroupName>Apps</GroupName>
         </Group>
         <Group>
           <GroupName>Devices</GroupName>
@@ -429,6 +436,36 @@
               <FileName>DR16.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Devices\DR16.c</FilePath>
+            </File>
+            <File>
+              <FileName>Devices_Flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Devices\Devices_Flash.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Apps</GroupName>
+          <Files>
+            <File>
+              <FileName>PID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\PID.c</FilePath>
+            </File>
+            <File>
+              <FileName>Analysis.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\Analysis.c</FilePath>
+            </File>
+            <File>
+              <FileName>CurrentSetting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\CurrentSetting.c</FilePath>
+            </File>
+            <File>
+              <FileName>Filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\Filter.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1178,10 +1215,17 @@
               <FileType>1</FileType>
               <FilePath>..\..\Task\TaskUSART.c</FilePath>
             </File>
+            <File>
+              <FileName>TaskCAN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Task\TaskCAN.c</FilePath>
+            </File>
+            <File>
+              <FileName>TaskControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Task\TaskControl.c</FilePath>
+            </File>
           </Files>
-        </Group>
-        <Group>
-          <GroupName>Apps</GroupName>
         </Group>
         <Group>
           <GroupName>Devices</GroupName>
@@ -1190,6 +1234,36 @@
               <FileName>DR16.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Devices\DR16.c</FilePath>
+            </File>
+            <File>
+              <FileName>Devices_Flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Devices\Devices_Flash.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Apps</GroupName>
+          <Files>
+            <File>
+              <FileName>PID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\PID.c</FilePath>
+            </File>
+            <File>
+              <FileName>Analysis.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\Analysis.c</FilePath>
+            </File>
+            <File>
+              <FileName>CurrentSetting.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\CurrentSetting.c</FilePath>
+            </File>
+            <File>
+              <FileName>Filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\Filter.c</FilePath>
             </File>
           </Files>
         </Group>
