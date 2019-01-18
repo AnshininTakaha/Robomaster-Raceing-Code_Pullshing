@@ -21,9 +21,14 @@
         "stm32f4xx_conf.h": "c",
         "usart.h": "c",
         "delay.h": "c",
-        "taskcan.h": "c"
+        "taskcan.h": "c",
+        "chassiscontrol.h": "c",
+        "taskcontrol.h": "c",
+        "cloudcontrol.h": "c",
+        "imu.h": "c",
+        "gmc.h": "c"
     },
-    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
     "C_Cpp.errorSquiggles": "Enabled",
     "C_Cpp.default.cStandard": "c99"
 }

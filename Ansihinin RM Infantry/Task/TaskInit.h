@@ -9,6 +9,9 @@
 #include "TaskCAN.h"
 #include "TaskControl.h"
 
+#include "PCControl.h"
+#include "ChassisControl.h"
+#include "CloudControl.h"
 
 #include "CAN.h"
 #include "LED.h"

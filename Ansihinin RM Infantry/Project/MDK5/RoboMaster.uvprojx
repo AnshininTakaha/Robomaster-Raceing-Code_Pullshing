@@ -442,6 +442,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Devices\Devices_Flash.c</FilePath>
             </File>
+            <File>
+              <FileName>IMU.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Devices\IMU.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -466,6 +471,21 @@
               <FileName>Filter.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Apps\Filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>ChassisControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\ChassisControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>CloudControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\CloudControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>PCControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\PCControl.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1240,6 +1260,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Devices\Devices_Flash.c</FilePath>
             </File>
+            <File>
+              <FileName>IMU.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Devices\IMU.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1264,6 +1289,21 @@
               <FileName>Filter.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Apps\Filter.c</FilePath>
+            </File>
+            <File>
+              <FileName>ChassisControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\ChassisControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>CloudControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\CloudControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>PCControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\PCControl.c</FilePath>
             </File>
           </Files>
         </Group>

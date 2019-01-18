@@ -6,7 +6,8 @@ RM3508_t RM3508s[4];
 RM6623_t RM6623s[2];
 /*对应的拨弹电机*/
 RM2006_t RM2006s[1];
-
+/*测试的GM6020电机*/
+RGM6020_t RGM6020[1];
 
 void Analysis_getinfo(CanRxMsg RxMessage)
 {
@@ -80,6 +81,12 @@ void Analysis_getinfo(CanRxMsg RxMessage)
         RM2006s[0].totalAngle = RM2006s[0].realAngle +(UNDULATION_A_TURN*RM2006s[0].turnCount);
         RM2006s[0].UpdateFlag = 1;
         RM2006s[0].UpdateFrame++;
+
+    case 0x208://GM2060测试
+        RGM6020[0].realAngle = (RxMessage.Data[0]<<8 | RxMessage.Data[1]);
+        RGM6020[0].realSpeed = (RxMessage.Data[2]<<8 | RxMessage.Data[3]);
+        RGM6020[0].realTorque = (RxMessage.Data[4]<<8 | RxMessage.Data[5]);
+        RGM6020[0].realTempeture = RxMessage.Data[6];
     }
 }
 
@@ -111,3 +118,5 @@ void M2006_ZeroDealing_platform(int8_t id)
     }
     RM2006s[id].lastAngle =  RM2006s[id].realAngle;
 }
+
+

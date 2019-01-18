@@ -78,8 +78,8 @@ void DR16_Process(uint8_t *pData)
 	DR16_Key_Whether_Process(DR16.keyBoard.key_code,&keyBorad);
 
 	DR16.UpdateFrame++;
-//	Chassis.modeswitch = DR16.rc.s_right;
-//	Cloud.modeswitch = DR16.rc.s_right;
+	Chassis.modeswitch = DR16.rc.s_right;
+	Cloud.modeswitch = DR16.rc.s_right;
 }
 /**
 * @name Data_Suppres
@@ -115,6 +115,30 @@ void Rocker_Stander(float positionX, float positionY, rocker_t *rocket)
     {
         rocket -> distance = -rocket -> distance;
     }
+}
+
+/**
+* @name GetSwitch系列
+* @brief 获取遥控器的模式
+* @param None
+* @retval 
+*/
+int GetSwitch_ModeChassis(void)
+{
+	return Chassis.modeswitch;
+}
+
+int GetSwitch_ModeCloud(void)
+{
+	return Cloud.modeswitch;
+}
+
+int GetSwitch_Mode(void)
+{
+	if(Chassis.modeswitch == Cloud.modeswitch)
+	{
+		return Cloud.modeswitch;
+	}
 }
 
 

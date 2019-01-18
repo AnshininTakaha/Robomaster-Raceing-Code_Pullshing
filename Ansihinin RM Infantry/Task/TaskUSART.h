@@ -5,10 +5,12 @@
 #include "task.h"
 #include "queue.h"
 #include "DR16.h"
+#include "TaskControl.h"
+#include "IMU.h"
 
 
 extern QueueHandle_t xUsart1RxQueue;
-
+extern QueueHandle_t xUsart3RxQueue;
 
 
 

@@ -39,6 +39,20 @@ typedef struct
 	uint32_t IntegralLimit;
 }positionpid_t;
 
+typedef struct
+{
+	float Target;
+	float Measured;
+	float error;
+	float last_error;
+	float ec_error;
+	float Kp,Ki,Kd;
+	float PWM;
+
+	uint32_t MaxOutput;
+	uint32_t IntegralLimit;
+}fuzzypid_t;
+
 /*增量式PID初始化*/
 void IncrementalPID_Init(incrementalpid_t *pid, float kp, float ki, float kd, uint32_t MaxOutput, uint32_t IntegralLimit);
 
@@ -50,6 +64,7 @@ int IncrementalPID_Calculation(incrementalpid_t *pid, float target, float measur
 
 /*位置式PID计算*/
 int PositionPID_Calculation(positionpid_t *pid, float target, float measured);
+
 
 #endif
 

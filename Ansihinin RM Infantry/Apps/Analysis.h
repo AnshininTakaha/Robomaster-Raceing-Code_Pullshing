@@ -40,7 +40,7 @@ typedef struct
 	
 	/*赋值（输出）部分*/
 	positionpid_t pid_speed;		
-  positionpid_t pid_angle;
+  	positionpid_t pid_angle;
 	int32_t totalAngle;
 	int16_t turnCount;
 	
@@ -64,7 +64,7 @@ typedef struct
 	
 	/*赋值（输出）部分*/
 	positionpid_t pid_speed;		
-  positionpid_t pid_angle;
+  	positionpid_t pid_angle;
 	int32_t totalAngle;
 	int16_t turnCount;
 	
@@ -79,9 +79,33 @@ typedef struct
 		uint8_t OFFLINE_SET;
 }RM2006_t;
 
+/*GM6020*/
+typedef	struct
+{
+	/*反馈（输入）部分*/
+	int16_t realAngle;
+	int16_t realSpeed;
+	int16_t realTorque;
+	int16_t realTempeture;
+	
+	/*赋值（输出）部分*/
+	positionpid_t pid_wheel;
+	int16_t targetSpeed;
+	int16_t targetAngle;
+	int16_t outCurrent;
+	
+	/*帧率控制（判断是否离线）*/
+	uint8_t UpdateFlag;
+	uint16_t UpdateFrame;
+	uint8_t OFFLINE_SET;
+	
+}RGM6020_t;
+
+
 extern RM3508_t RM3508s[4];
 extern RM6623_t RM6623s[2];
 extern RM2006_t RM2006s[1];
+extern RGM6020_t RGM6020[1];
 
 /*分析多个电机数据*/
 void Analysis_getinfo(CanRxMsg RxMessage);

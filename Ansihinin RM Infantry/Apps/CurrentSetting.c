@@ -40,3 +40,21 @@ void Cloud_And_Emitter_CurrentSetting(int16_t I_Yaw, int16_t I_Pitch, \
     CAN_SendData(CAN1,CAN_ID_STD,0x1FF,Cloud_Sending);
 }
 
+void GM6020_TestSending(int16_t I1,int16_t I2,int16_t I3,int16_t I4)
+{
+    uint8_t I_Sending[8];
+
+    I_Sending[0] = I1 >> 8;
+    I_Sending[1] = I1;
+
+    I_Sending[2] = I2 >> 8;
+    I_Sending[3] = I2;
+
+    I_Sending[4] = I3 >> 8;
+    I_Sending[5] = I3;
+
+    I_Sending[6] = I4 >> 8;
+    I_Sending[7] = I4;
+
+    CAN_SendData(CAN1,CAN_ID_STD,0X1FF,I_Sending);
+}

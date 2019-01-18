@@ -36,6 +36,7 @@
 #include "TaskCAN.h"
 #include "DR16.h"
 #include "USART.h"
+#include "IMU.h"
 
 extern void xPortSysTickHandler( void );
 /** @addtogroup STM32F4xx_StdPeriph_Examples
@@ -221,9 +222,30 @@ void USART2_IRQHandler(void)
 
 	}
 
+uint16_t s_U3dataLength = 0;
+void USART3_IRQHandler(void)
+  {
+    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+
+    if(USART_GetITStatus(USART3, USART_IT_IDLE) != RESET)
+    {
+      DMA_Cmd(USART3_RX_DMA_STREAM, DISABLE);
+      uint16_t DMA_Counter = DMA_GetCurrDataCounter(USART3_RX_DMA_STREAM);
+      s_U3dataLength = GY_IMU_BUFFSIZE - DMA_Counter;
+      xQueueSendFromISR(xUsart3RxQueue,&Cloud_GY_IMU_RXBUFF, &xHigherPriorityTaskWoken);
+      portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+
+      DMA_SetCurrDataCounter(USART3_RX_DMA_STREAM,GY_IMU_BUFFSIZE);
+      DMA_Cmd(USART3_RX_DMA_STREAM, ENABLE);
+
+      (void)USART3->DR;
+	  	(void)USART3->SR;
+    }
+  }
+
 
 /**
-  * @brief  CAN1 FIFO0 Ф▌╔Ф■╤Д╦?Ф√?Ф°█Е┼║Е┤╫Ф∙╟
+  * @brief  CAN1 FIFO0 жп╤оеп╤о
   * @param  None
   * @retval None
   */
