@@ -41,7 +41,9 @@ int main(void)
 	
 	while(1)
 	{
-//		ANO_Send_Data_V1(Calulations,RM6623s[0].outCurrent,0,0);
+		
+		
+//		ANO_Send_Data_V1(RM6623s[1].outCurrent,0,0,0);
 
 	}
 }

@@ -213,8 +213,10 @@ void USART1_IRQHandler(void)
 	int x_ILF,y_ILF;
 	int last_cv_x,last_cv_y;
 	int HC_X,HC_Y;
-  int text = 0;
+	int USARTCounter = 0;
+
 	int NControl;
+	int SendConunter = 0;
 void USART2_IRQHandler(void)
 {
 	DMA_Cmd(USART2_RX_DMA_STREAM, DISABLE);
@@ -222,149 +224,92 @@ void USART2_IRQHandler(void)
 	//	uint16_t DMA_Counter = DMA_GetCurrDataCounter(USART2_RX_DMA_STREAM);
 		
 	int x,y;
-//	int NControl;
+	if(SendConunter++ > 1000)
+	{
+		GPIO_ToggleBits(GPIOF,GPIO_Pin_14);
+		SendConunter = 0;
+	}
+
 	if(CV_RXBUFF[0] == 'S')
 	{
 		if(sscanf(CV_RXBUFF, "S%d,%d", &x,&y) == 2)//扫描有效数值为2
 		{
+			/*x轴参数*/
+			// if(abs(x) > 320 && abs(x) < 370)
+			// {
+				Cloud.YAW_Attitude_pid.Kp = -1.5;
+				Cloud.YAW_Attitude_pid.Ki = -0.0;
+				Cloud.YAW_Attitude_pid.Kd = -0.2;
+			// }
 			
-
-			if(abs(x) < 10)
-			{
-				x = 0;
-			}
-			if(abs(y) < 10)
-			{
-				y = 0;
-			}
-
-			if(abs(x)>10 && abs(x)<=20)
-			{
-				Cloud.YAW_Attitude_pid.Kp = -1.2;
-				Cloud.YAW_Attitude_pid.Ki = -4.7;
-				Cloud.YAW_Attitude_pid.Kd = -0.6;
-			}
-			else if(abs(x)>20 && abs(x)<=30)
-			{
-				Cloud.YAW_Attitude_pid.Kp = -1.24;
-				Cloud.YAW_Attitude_pid.Kp = -4.7;
-				Cloud.YAW_Attitude_pid.Kd = -0.6;
-			}
-			else if(abs(x)>30 && abs(x)<=60)
-			{
-				Cloud.YAW_Attitude_pid.Kp = -1.28;
-				Cloud.YAW_Attitude_pid.Ki = -4.6;
-				Cloud.YAW_Attitude_pid.Kd = -0.6;
-			}
-			else if(abs(x)>60 && abs(x)<=100)
-			{
-				Cloud.YAW_Attitude_pid.Kp = -1.32;
-				Cloud.YAW_Attitude_pid.Ki = -4.6;
-				Cloud.YAW_Attitude_pid.Kd = -0.6;
-			}
-			else if(abs(x)>100 && abs(x)<=150)
-			{
-				Cloud.YAW_Attitude_pid.Kp = -1.36;
-				Cloud.YAW_Attitude_pid.Ki = -4.55;
-				Cloud.YAW_Attitude_pid.Kd = -0.6;
-			}
-			else
-			{
-				Cloud.YAW_Attitude_pid.Kp = -1.38;
-				Cloud.YAW_Attitude_pid.Ki = -3.55;
-				Cloud.YAW_Attitude_pid.Kd = -0.6;
-			}
 	
-			
-				
-			if(abs(y)>10 && abs(y)<=20)
+			/*y轴参数*/
+				// RM6623s[1].pid_angle.Kp = 1.18;
+			if(y > 240  && y < 480)
 			{
-				RM6623s[1].pid_speed.Kp = -4.9;
-				RM6623s[1].pid_speed.Ki = -3.0;
-				RM6623s[1].pid_speed.Kd = -20.0;
-			}
-			else if(abs(y)>20 && abs(y)<=30)
-			{
-				RM6623s[1].pid_speed.Kp = -5.0;
-				RM6623s[1].pid_speed.Ki = -2.8;
-			}
-			else if(abs(y)>30 && abs(y)<=60)
-			{
-				RM6623s[1].pid_speed.Kp = -5.2;
-				RM6623s[1].pid_speed.Ki = -2.6;
-			}
-			else if(abs(y)>60 && abs(y)<=100)
-			{
-				RM6623s[1].pid_speed.Kp = -5.4;
-				RM6623s[1].pid_speed.Ki = -2.4;
-			}
-			else if(abs(y)>100 && abs(y)<=150)
-			{
-				RM6623s[1].pid_speed.Kp = -5.6;
-				RM6623s[1].pid_speed.Ki = -2.2;
-			}
-			else if(abs(y)>150 && abs(y)<=210)
-			{
-				RM6623s[1].pid_speed.Kp = -5.8;
-				RM6623s[1].pid_speed.Ki = -2.0;
+				RM6623s[1].pid_angle.Kp = 1.8;
+				RM6623s[1].pid_angle.Ki = 0.0;
+				RM6623s[1].pid_angle.Kd = 1.2;
 			}
 			else
 			{
-				RM6623s[1].pid_speed.Kp = -6.0;
-				RM6623s[1].pid_speed.Ki = -1.8;
+				RM6623s[1].pid_angle.Kp = 2.1;
+				RM6623s[1].pid_angle.Ki = 0.0;
+				RM6623s[1].pid_angle.Kd = 1.2;
 			}
+			
+			
 			
 			
 /*小摄像头窗口位置（640*480）*/
 			Filter_IIRLPFINT(&x,&x_ILF,0.6);
 			Filter_IIRLPFINT(&y,&y_ILF,0.4);
-
+			USARTCounter++;
 			cv_x = x_ILF-320;
 			cv_y = y_ILF-240;
-
+			
 /*大摄像头窗口位置（1280*1024）*/
-//			Filter_IIRLPFINT(&x,&x_ILF,0.6);
-//			Filter_IIRLPFINT(&y,&y_ILF,0.4);
-//			
-//			cv_x = x_ILF-640;
-//			cv_y = y_ILF-512;
-//			HC_X = HC_Y = 0;
+			// Filter_IIRLPFINT(&x,&x_ILF,0.6);
+			// Filter_IIRLPFINT(&y,&y_ILF,0.4);
+			
+			// cv_x = x_ILF-640;
+			// cv_y = y_ILF-512;
 
-			/*扩展镜头写法*/	
+				
 			last_cv_x = cv_x;
 			last_cv_y = cv_y;
 		}		
 	}
-	else if(CV_RXBUFF[0] == 'N')
-	{
+
+	// else if(CV_RXBUFF[0] == 'N')
+	// {
 		
-	  if(sscanf(CV_RXBUFF, "N%d", &NControl) == 1)
-		{
+	//   if(sscanf(CV_RXBUFF, "N%d", &NControl) == 1)
+	// 	{
 			
-			if(NControl == 1000000)
-			{
-				cv_x = 0;
-				cv_y = 0;
-			}
-			else if(NControl == 2000000)
-			{
-				cv_x = -25;
-				cv_y = 0;
-				text = 1;
-			}
-			else if(NControl == 3000000)
-			{
-				cv_x = 25;
-				cv_y = 0;
-			}
-		}	
-		
-	}
+	// 		if(NControl == 1000000)
+	// 		{
+	// 			// cv_x = 0;
+	// 			// cv_y = 0;
+	// 		}
+	// 		else if(NControl == 2000000)
+	// 		{
+	// 			// cv_x = -25;
+	// 			// cv_y = 0;
+	// 			// text = 1;
+	// 		}
+	// 		else if(NControl == 3000000)
+	// 		{
+	// 			// cv_x = 25;
+	// 			// cv_y = 0;
+	// 		}
+	// 	}		
+	// }
 
 		
 		
 	//设置中断长度
-    DMA_SetCurrDataCounter(USART2_RX_DMA_STREAM,10);
+  DMA_SetCurrDataCounter(USART2_RX_DMA_STREAM,10);
 	//重新启动DMA
 	DMA_Cmd(USART2_RX_DMA_STREAM, ENABLE);
 		
@@ -439,6 +384,8 @@ void CAN1_RX0_IRQHandler(void)
 float cv_XRatio = 1.2f;
 float cv_YRatio = 0.7f;
 float CounterSS= 0 ;
+int CounterUSART2 = 0;
+int A= 0 ;
 void TIM6_DAC_IRQHandler(void)
 {
 	
@@ -455,12 +402,21 @@ void TIM6_DAC_IRQHandler(void)
 		 if(++counter > 100)
         {
 					#if New_RM
-//           GPIO_ToggleBits(GPIOE,GPIO_Pin_11);
+//                  GPIO_ToggleBits(GPIOE,GPIO_Pin_11);
 					#else
 					GPIO_ToggleBits(GPIOE,GPIO_Pin_7);
 					#endif
            counter = 0;
         }
+
+			if(CounterUSART2++ >= 100)
+			{
+				A = USARTCounter;
+				printf("A = %d\r\n",USARTCounter);
+				CounterUSART2 =0;	
+				USARTCounter = 0;
+			}
+
 	
 			switch(GetSwitch_Mode())
 			{
@@ -475,7 +431,7 @@ void TIM6_DAC_IRQHandler(void)
 //					pc.PCMode = Mode_Chassiscal_NoneHead;
 					/*云台跟随模式*/
 					pc.PCMode = Mode_Cloud_PlatformFollowing;
-					CAN_Cylinder();//气缸测试
+					// CAN_Cylinder();//气缸测试
 					Chassis_Vx = rocket_Left.x /660 *Chassis_MaxSpeed_X;
 					Chassis_Vy = rocket_Left.y /600 *Chassis_MaxSpeed_Y;
 					Cloud_delta_Yaw = rocket_Right.x/8;
@@ -500,7 +456,7 @@ void TIM6_DAC_IRQHandler(void)
 					
 					/*自瞄*/
 						Cloud_delta_Yaw += cv_x/3;
-						Cloud_delta_Pitch += cv_y/6;
+						Cloud_delta_Pitch += cv_y/3;
 						HC_X = Cloud_delta_Yaw;
 						HC_Y = Cloud_delta_Pitch;
 						cv_x = 0;

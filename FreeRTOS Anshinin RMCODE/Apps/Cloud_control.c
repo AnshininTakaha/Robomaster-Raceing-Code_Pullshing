@@ -36,9 +36,9 @@ void Cloud_Init(void)
     PositionPID_Init(&RM6623s[0].pid_speed,-10.0f, 0.0f, 0.0f, 4000, 0);
     PositionPID_Init(&RM6623s[0].pid_angle,2.0f, 0.0f, 1.0f, 500, 0);
 
-    /*PITCH轴PID初始化*/
-    PositionPID_Init(&RM6623s[1].pid_speed,-6.0f, 0.0f, -20.0f, 4000, 0);
-    PositionPID_Init(&RM6623s[1].pid_angle,2.0f, 0.0f, 0.0f, 500, 0);
+    /*PITCH轴PID初始化*//**/
+    PositionPID_Init(&RM6623s[1].pid_speed,-20.0f, 0.0f, -10.5f, 4000, 0);
+    PositionPID_Init(&RM6623s[1].pid_angle, 0.23f, 0.0f, 0.5f, 500, 0);
 
     /**************************陀螺仪控制***************************/
 
@@ -46,8 +46,9 @@ void Cloud_Init(void)
     Cloud.IMUYaw_Raw = Cloud.IMUYaw_LPF = Cloud_IMU.totalYaw;
     Cloud.IMUPitch_Raw = Cloud.IMUPitch_LPF = Cloud_IMU.eular.roll;
 
-    /*Yaw*/
-    PositionPID_Init(&Cloud.YAW_Attitude_pid,  -1.309038f, -2.5f, -0.5f, 500, 0);
+    /*Yaw*//**/
+    // PositionPID_Init(&Cloud.YAW_Attitude_pid,  -1.3f, -2.5f, -0.5f, 500, 0);
+    PositionPID_Init(&Cloud.YAW_Attitude_pid,  -1.3f, -0.31f, -1.6f, 500, 0);
     PositionPID_Init(&Cloud.YAW_Speed_pid, -60.0f, 0.0f, -48.0, 4000, 0);
 
     /*Pitch*/
@@ -162,6 +163,15 @@ void Double_Cloud_process(float Delta_YAW,float Delta_Ptich,uint8_t switchmode)
         //清标志位
         RM6623s[1].UpdateFlag = 0;
     }
+
+    // RM6623s[1].pid_speed.Kp = -20.0f;
+    // RM6623s[1].pid_angle.Kp = 0.23f;
+	// RM6623s[1].pid_angle.Ki = 0.0f;
+	// RM6623s[1].pid_angle.Kd = 0.5f;
+
+    // Cloud.YAW_Attitude_pid.Kp = -1.3f;
+    // Cloud.YAW_Attitude_pid.Ki = -0.31f;
+	// Cloud.YAW_Attitude_pid.Kd = -1.5f;
 
     Cloud_And_Emitter_CurrentSetting(RM6623s[0].outCurrent,RM6623s[1].outCurrent,RM2006s[0].outCurrent,0);
 
