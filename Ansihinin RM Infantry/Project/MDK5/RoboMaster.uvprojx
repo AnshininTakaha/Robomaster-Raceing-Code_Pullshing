@@ -487,6 +487,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Apps\PCControl.c</FilePath>
             </File>
+            <File>
+              <FileName>ShootControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\ShootControl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1304,6 +1309,11 @@
               <FileName>PCControl.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Apps\PCControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>ShootControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\ShootControl.c</FilePath>
             </File>
           </Files>
         </Group>

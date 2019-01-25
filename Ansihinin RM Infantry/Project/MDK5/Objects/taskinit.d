@@ -75,6 +75,7 @@
 .\objects\taskinit.o: ..\..\Task\TaskControl.h
 .\objects\taskinit.o: ..\..\Devices\Devices_Flash.h
 .\objects\taskinit.o: ..\..\Task\TaskCAN.h
-.\objects\taskinit.o: ..\..\BSP\LED.h
+.\objects\taskinit.o: ..\..\Apps\ShootControl.h
 .\objects\taskinit.o: ..\..\BSP\TIM.h
+.\objects\taskinit.o: ..\..\BSP\LED.h
 .\objects\taskinit.o: ..\..\BSP\Laser.h

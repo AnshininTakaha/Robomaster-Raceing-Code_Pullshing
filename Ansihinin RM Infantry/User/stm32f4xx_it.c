@@ -65,6 +65,7 @@ extern void xPortSysTickHandler( void );
   */
 void NMI_Handler(void)
 {
+
 }
 
 /**
@@ -78,7 +79,7 @@ void HardFault_Handler(void)
   while (1)
   {
   }
-}
+} 
 
 /**
   * @brief  This function handles Memory Manage exception.
@@ -135,6 +136,7 @@ void UsageFault_Handler(void)
   */
 void DebugMon_Handler(void)
 {
+
 }
 
 /**
@@ -222,26 +224,41 @@ void USART2_IRQHandler(void)
 
 	}
 
-uint16_t s_U3dataLength = 0;
+
+//uint16_t s_U3dataLength = 0;
 void USART3_IRQHandler(void)
   {
-    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
-    if(USART_GetITStatus(USART3, USART_IT_IDLE) != RESET)
-    {
-      DMA_Cmd(USART3_RX_DMA_STREAM, DISABLE);
-      uint16_t DMA_Counter = DMA_GetCurrDataCounter(USART3_RX_DMA_STREAM);
-      s_U3dataLength = GY_IMU_BUFFSIZE - DMA_Counter;
-      xQueueSendFromISR(xUsart3RxQueue,&Cloud_GY_IMU_RXBUFF, &xHigherPriorityTaskWoken);
-      portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
-
-      DMA_SetCurrDataCounter(USART3_RX_DMA_STREAM,GY_IMU_BUFFSIZE);
-      DMA_Cmd(USART3_RX_DMA_STREAM, ENABLE);
-
-      (void)USART3->DR;
-	  	(void)USART3->SR;
-    }
   }
+
+
+/**
+* @name USART6_IRQHandler
+* @brief 陀螺仪中断
+* @param None
+* @retval       必要说明
+*/
+uint16_t s_U6dataLength = 0;
+void USART6_IRQHandler(void)
+{
+	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+	if(USART_GetITStatus(USART6,USART_IT_IDLE)!= RESET)
+	{
+		DMA_Cmd(USART6_RX_DMA_STREAM,DISABLE);
+		uint16_t DMA_Counter = DMA_GetCurrDataCounter(USART6_RX_DMA_STREAM);
+		s_U6dataLength = GY_IMU_BUFFSIZE - DMA_Counter;
+		xQueueSendFromISR(xUsart6RxQueue,&Cloud_GY_IMU_RXBUFF, &xHigherPriorityTaskWoken);
+		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+		
+		DMA_SetCurrDataCounter(USART6_RX_DMA_STREAM,GY_IMU_BUFFSIZE);
+		DMA_Cmd(USART6_RX_DMA_STREAM, ENABLE);
+		
+		(void)USART6->DR;
+	  (void)USART6->SR;
+	}
+	
+	
+}
 
 
 /**

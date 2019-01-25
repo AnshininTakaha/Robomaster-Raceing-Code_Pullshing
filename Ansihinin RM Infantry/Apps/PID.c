@@ -146,7 +146,7 @@ int PositionPID_Calculation(positionpid_t *pid, float target, float measured)
 
 
 
-int FuzzyPID_Calculation(fuzzypid_t *pid,float target, float measured)
+int FuzzyPID_PosCalculation(positionpid_t *pid,float target, float measured)
 {
     float kp_output,ki_output,kd_output;
 
@@ -154,12 +154,73 @@ int FuzzyPID_Calculation(fuzzypid_t *pid,float target, float measured)
     pid->Measured = (float)measured;
     pid->error = pid->Target - pid->Measured;
     pid->ec_error = pid->error - pid->last_error;
-    /***/
+    /*模糊推导*/
+    pid->Kp = fuzzy_kp(pid->error,pid->ec_error);
+    pid->Ki = fuzzy_ki(pid->error,pid->ec_error);
+    pid->Kd = fuzzy_kd(pid->error,pid->ec_error);
 
-
+    if(abs(pid->error) < 20)
+	{
+		pid->Add_error += pid->error;
+	}
     
+    /*消除抖动*/
+    if(abs_Calculation(pid->error) < 0.5f )
+    {
+        pid->error = 0.0f;
+    }
 
+    kp_output = pid->Kp * pid->error;
+    ki_output = pid->Ki * pid->Add_error;
+    kd_output = pid->Kd * pid->ec_error;
+    
+    Ki_Limiting(&ki_output,pid->IntegralLimit);
+
+    pid->PWM = (kp_output + ki_output + kd_output);
+
+    /*输出限幅*/
+    Output_Limting(&pid->PWM,pid->MaxOutput);
+
+    pid->last_error = pid ->error;
+
+    return pid->PWM;
 }
+
+int FuzzyPID_IncCalculation(incrementalpid_t *pid,float target, float measured)
+{
+    float kp_output,ki_output,kd_output;
+
+    pid->Target_speed = (float)target;
+    pid->Measured_speed = (float)measured;
+    pid->error = pid->Target_speed - pid->Measured_speed;
+    pid->ec_error = pid->error - pid->last_error;
+    /*模糊推导*/
+    pid->Kp = fuzzy_kp(pid->error,pid->ec_error);
+    pid->Ki = fuzzy_ki(pid->error,pid->ec_error);
+    pid->Kd = fuzzy_kd(pid->error,pid->ec_error);
+    
+    /*消除抖动*/
+    if(abs_Calculation(pid->error) < 0.5f )
+    {
+        pid->error = 0.0f;
+    }
+
+    kp_output = pid->Kp * (pid->ec_error);
+    ki_output = pid->Ki * (pid->error);
+    kd_output = pid->Kd * (pid->error - 2*pid->last_error + pid->beforelast_error);
+    
+    Ki_Limiting(&ki_output,pid->IntegralLimit);
+
+    pid->PWM = (kp_output + ki_output + kd_output);
+
+    /*输出限幅*/
+    Output_Limting(&pid->PWM,pid->MaxOutput);
+
+    pid->last_error = pid ->error;
+
+    return pid->PWM;
+}
+
 
 float fuzzy_kp(float e, float ec) //e,ec，表示误差，误差变化率 
 { 
@@ -170,13 +231,13 @@ float fuzzy_kp(float e, float ec) //e,ec，表示误差，误差变化率
     unsigned char  num,pe,pec; 
 
     /*e误差的模糊论域，可通过真实的误差来进行调整（根据电机的实际误差）*/
-    float eRule[7]={-3.0,-2.0,-1.0,0.0,1.0,2.0,3.0};
+    float eRule[7]={-80.0,-50.0,-20.0,0.0,20.0,50.0,80.0};
 
     /*ec误差变化率的模糊论域，可以通过真实的误差变化率来进行调整（根据电机的实际误差）*/
-    float ecRule[7]={-3.0,-2.0,-1.0,0.0,1.0,2.0,3.0};
+    float ecRule[7]={-7.0,-5.0,-3.0,0.0,3.0,5.0,7.0};
 
     /*Kp 的模糊子集*/
-    float kpRule[4]={0.0,8.0,16.0,24.0}; 
+    float kpRule[4]={0.486,0.648,0.729,0.7873}; 
 
     float eFuzzy[2]={0.0,0.0};//隶属于误差 E 的隶属程度
     float ecFuzzy[2]={0.0,0.0}; //隶属于误差变化率 EC 的隶属程度
@@ -285,3 +346,220 @@ float fuzzy_kp(float e, float ec) //e,ec，表示误差，误差变化率
 
     return(Kp_calcu);
 }
+
+float fuzzy_ki(float e, float ec) 
+{ 
+    float Ki_calcu; 
+    unsigned char num,pe,pec; 
+
+    float eRule[7]={-120.0,-80.0,-40.0,0.0,40.0,80.0,120.0};
+
+    float ecRule[7]={-7.0,-5.0,-3.0,0.0,3.0,5.0,7.0};
+
+    float kiRule[4]={0.0,0.0,0.0,0.0}; 
+
+    float eFuzzy[2]={0.0,0.0}; 
+    float ecFuzzy[2]={0.0,0.0}; 
+    
+    float KiFuzzy[4]={0.0,0.0,0.0,0.0}; 
+    int KiRule[7][7]= 
+    { 
+        0,0,0,0,0,0,0, 
+        0,0,0,0,0,0,0, 
+        0,0,0,0,0,0,0, 
+        0,0,0,0,0,0,0, 
+        0,0,0,0,0,0,0, 
+        2,0,0,0,0,0,1, 
+        3,3,3,3,3,3,3 
+    }; 
+        /***** 误差隶属函数描述 *****/ 
+        if(e<eRule[0]) 
+        { 
+            eFuzzy[0] =1.0; pe = 0; 
+        } 
+        else if(eRule[0]<=e && e<eRule[1]) 
+        { 
+            eFuzzy[0] = (eRule[1]-e)/(eRule[1]-eRule[0]); pe = 0; 
+        } 
+        else if(eRule[1]<=e && e<eRule[2]) 
+        { 
+            eFuzzy[0] = (eRule[2] -e)/(eRule[2]-eRule[1]); pe = 1; 
+        } 
+        else if(eRule[2]<=e && e<eRule[3]) 
+        { 
+            eFuzzy[0] = (eRule[3] -e)/(eRule[3]-eRule[2]); pe = 2; 
+        } 
+        else if(eRule[3]<=e && e<eRule[4]) 
+        { 
+            eFuzzy[0] = (eRule[4]-e)/(eRule[4]-eRule[3]); pe = 3; 
+        } 
+        else if(eRule[4]<=e && e<eRule[5]) 
+        { 
+            eFuzzy[0] = (eRule[5]-e)/(eRule[5]-eRule[4]); pe = 4; 
+        } 
+        else if(eRule[5]<=e && e<eRule[6]) 
+        { 
+            eFuzzy[0] = (eRule[6]-e)/(eRule[6]-eRule[5]); pe = 5; 
+        } 
+        else 
+        { 
+            eFuzzy[0] =0.0; pe =5; 
+        } 
+        eFuzzy[1] =1.0 - eFuzzy[0]; 
+        
+        /***** 误差变化隶属函数描述 *****/  
+        if(ec<ecRule[0])  
+        { 
+            ecFuzzy[0] =1.0; pec = 0; 
+        } 
+        else if(ecRule[0]<=ec && ec<ecRule[1])
+        { 
+            ecFuzzy[0] = (ecRule[1] - ec)/(ecRule[1]-ecRule[0]); pec = 0 ; 
+        } 
+        else if(ecRule[1]<=ec && ec<ecRule[2]) 
+        { 
+            ecFuzzy[0] = (ecRule[2] - ec)/(ecRule[2]-ecRule[1]); pec = 1; 
+        } 
+        else if(ecRule[2]<=ec && ec<ecRule[3]) 
+        { 
+            ecFuzzy[0] = (ecRule[3] - ec)/(ecRule[3]-ecRule[2]); pec = 2 ; 
+        } 
+        else if(ecRule[3]<=ec && ec<ecRule[4]) 
+        { 
+            ecFuzzy[0] = (ecRule[4]-ec)/(ecRule[4]-ecRule[3]); pec=3; 
+        } 
+        else if(ecRule[4]<=ec && ec<ecRule[5]) 
+        { 
+            ecFuzzy[0] = (ecRule[5]-ec)/(ecRule[5]-ecRule[4]); pec=4; 
+        } 
+        else if(ecRule[5]<=ec && ec<ecRule[6]) 
+        { 
+            ecFuzzy[0] = (ecRule[6]-ec)/(ecRule[6]-ecRule[5]); pec=5; 
+        } 
+        else 
+        { 
+            ecFuzzy[0] =0.0; pec = 5; 
+        } 
+        ecFuzzy[1] = 1.0 - ecFuzzy[0]; 
+        /*********** 查询模糊规则表 ***************/ 
+        num =KiRule[pe][pec]; 
+        KiFuzzy[num] += eFuzzy[0]*ecFuzzy[0]; 
+        num =KiRule[pe][pec+1]; 
+        KiFuzzy[num] += eFuzzy[0]*ecFuzzy[1]; 
+        num =KiRule[pe+1][pec]; 
+        KiFuzzy[num] += eFuzzy[1]*ecFuzzy[0]; 
+        num =KiRule[pe+1][pec+1]; 
+        KiFuzzy[num] += eFuzzy[1]*ecFuzzy[1]; 
+        /******** 加 权 平 均 法 解 模 糊 ********/ 
+        Ki_calcu=KiFuzzy[0]*kiRule[0]+KiFuzzy[1]*kiRule[1]+KiFuzzy[2]*kiRule[2] +KiFuzzy[3]*kiRule[3]; 
+        return(Ki_calcu); 
+} 
+
+
+
+float fuzzy_kd(float e, float ec) 
+{ 
+    float Kd_calcu; 
+    unsigned char num,pe,pec; 
+    float eRule[7]={-80.0,-40.0,-20.0,0.0,20.0,40.0,80.0};
+
+    float ecRule[7]={-7.0,-5.0,-3.0,0.0,3.0,5.0,7.0};
+
+    float kdRule[4]={1.1386,1.198,1.5859,1.7032}; 
+    
+    float eFuzzy[2]={0.0,0.0}; 
+    float ecFuzzy[2]={0.0,0.0}; 
+
+    
+    float KdFuzzy[4]={0.0,0.0,0.0,0.0}; 
+    int KdRule[7][7]= 
+    { 
+        3,3,3,2,2,2,2, 
+        2,2,2,1,1,1,1, 
+        1,1,2,1,1,2,1, 
+        1,1,0,1,0,1,1, 
+        1,1,0,0,0,1,1, 
+        2,2,1,0,1,1,1, 
+        3,3,3,3,2,3,2  
+    }; 
+            /***** 误差隶属函数描述 *****/ 
+    if(e<eRule[0]) 
+    { 
+        eFuzzy[0] =1.0; pe = 0; 
+    } 
+    else if(eRule[0]<=e && e<eRule[1]) 
+    { 
+        eFuzzy[0] = (eRule[1]-e)/(eRule[1]-eRule[0]); pe = 0; 
+    } 
+    else if(eRule[1]<=e && e<eRule[2]) 
+    { 
+        eFuzzy[0] = (eRule[2] -e)/(eRule[2]-eRule[1]); pe = 1; 
+    } 
+    else if(eRule[2]<=e && e<eRule[3]) 
+    { 
+        eFuzzy[0] = (eRule[3] -e)/(eRule[3]-eRule[2]); pe = 2; 
+    } 
+    else if(eRule[3]<=e && e<eRule[4]) 
+    { 
+        eFuzzy[0] = (eRule[4]-e)/(eRule[4]-eRule[3]); pe = 3; 
+    } 
+    else if(eRule[4]<=e && e<eRule[5]) 
+    { 
+        eFuzzy[0] = (eRule[5]-e)/(eRule[5]-eRule[4]); pe = 4; 
+    } 
+    else if(eRule[5]<=e && e<eRule[6]) 
+    { 
+        eFuzzy[0] = (eRule[6]-e)/(eRule[6]-eRule[5]); pe = 5; 
+    } 
+    else 
+    { 
+         eFuzzy[0] =0.0; pe =5; 
+    } 
+    eFuzzy[1] =1.0 - eFuzzy[0]; 
+    /***** 误差变化隶属函数描述 *****/  
+    if(ec<ecRule[0])  
+    { 
+        ecFuzzy[0] =1.0; pec = 0; 
+    } 
+    else if(ecRule[0]<=ec && ec<ecRule[1]) 
+    { 
+        ecFuzzy[0] = (ecRule[1] - ec)/(ecRule[1]-ecRule[0]); pec = 0 ; 
+    } 
+    else if(ecRule[1]<=ec && ec<ecRule[2]) 
+    { 
+        ecFuzzy[0] = (ecRule[2] - ec)/(ecRule[2]-ecRule[1]); pec = 1; 
+    } 
+    else if(ecRule[2]<=ec && ec<ecRule[3]) 
+    { 
+        ecFuzzy[0] = (ecRule[3] - ec)/(ecRule[3]-ecRule[2]); pec = 2 ; 
+    } 
+    else if(ecRule[3]<=ec && ec<ecRule[4]) 
+    { 
+        ecFuzzy[0] = (ecRule[4]-ec)/(ecRule[4]-ecRule[3]); pec=3; 
+    } 
+    else if(ecRule[4]<=ec && ec<ecRule[5]) 
+    { 
+        ecFuzzy[0] = (ecRule[5]-ec)/(ecRule[5]-ecRule[4]); pec=4; 
+    } 
+    else if(ecRule[5]<=ec && ec<ecRule[6]) 
+    { 
+        ecFuzzy[0] = (ecRule[6]-ec)/(ecRule[6]-ecRule[5]); pec=5; 
+    } 
+    else 
+    { 
+        ecFuzzy[0] =0.0; pec = 5; 
+    } 
+    ecFuzzy[1] = 1.0 - ecFuzzy[0];
+     /*********** 查询模糊规则表 *************/ 
+    num =KdRule[pe][pec]; 
+    KdFuzzy[num] += eFuzzy[0]*ecFuzzy[0]; 
+    num =KdRule[pe][pec+1]; 
+    KdFuzzy[num] += eFuzzy[0]*ecFuzzy[1]; 
+    num =KdRule[pe+1][pec]; 
+    KdFuzzy[num] += eFuzzy[1]*ecFuzzy[0]; 
+    num =KdRule[pe+1][pec+1]; 
+    KdFuzzy[num] += eFuzzy[1]*ecFuzzy[1]; 
+    /******** 加权平均法解模糊 ********/ 
+    Kd_calcu=KdFuzzy[0]*kdRule[0]+KdFuzzy[1]*kdRule[1]+KdFuzzy[2]*kdRule[2] +KdFuzzy[3]*kdRule[3]; 
+    return(Kd_calcu); 
+} 

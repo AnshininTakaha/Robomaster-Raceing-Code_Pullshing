@@ -15,6 +15,7 @@
 ".\objects\chassiscontrol.o"
 ".\objects\cloudcontrol.o"
 ".\objects\pccontrol.o"
+".\objects\shootcontrol.o"
 ".\objects\can.o"
 ".\objects\delay.o"
 ".\objects\led.o"
