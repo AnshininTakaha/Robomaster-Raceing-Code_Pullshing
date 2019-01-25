@@ -10,7 +10,8 @@
 
 
 extern QueueHandle_t xUsart1RxQueue;
-extern QueueHandle_t xUsart3RxQueue;
+//extern QueueHandle_t xUsart3RxQueue;
+extern QueueHandle_t xUsart6RxQueue;
 
 
 

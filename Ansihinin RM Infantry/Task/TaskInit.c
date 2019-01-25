@@ -25,6 +25,8 @@ void TaskStart(void *pvParameters)
     
     Chassis_Init();
     Cloud_Init();
+    Shoot_Init();
+    
 
     /*任务初始化*/
     /*USART任务初始化*/

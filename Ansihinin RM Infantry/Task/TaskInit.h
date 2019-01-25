@@ -12,6 +12,7 @@
 #include "PCControl.h"
 #include "ChassisControl.h"
 #include "CloudControl.h"
+#include "ShootControl.h"
 
 #include "CAN.h"
 #include "LED.h"
