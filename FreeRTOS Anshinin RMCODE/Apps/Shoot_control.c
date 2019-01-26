@@ -47,6 +47,7 @@ void firction_speedSetting(uint16_t speed)
 }
 
 uint16_t ON_temp = 1000;
+
 void firction_ON(void)
 {
     

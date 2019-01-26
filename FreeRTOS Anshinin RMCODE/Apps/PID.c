@@ -148,7 +148,7 @@ int IncrementalPID_Calculation(incrementalpid_st *pid, float target, float measu
     pid->Measured_speed = measured;
 
     pid->error = pid->Target_speed - pid->Measured_speed;
-
+		
     /*抖动消除*/
     if(abs_Calculation(pid->error) < 0.2f )
     {
@@ -193,15 +193,19 @@ int IncrementalPID_Calculation(incrementalpid_st *pid, float target, float measu
   * @Data    2018-10-30
  **/
 /* -------------------------------- end -------------------------------- */
+float ec_error;
 
 int PositionPID_Calculation(positionpid_st *pid, float target, float measured)
 {
     float kp_output,ki_output,kd_output;
+		
 
     pid->Target = (float)target;
     pid->Measured = (float)measured;
     pid->error = pid->Target - pid->Measured;
-
+	
+		ec_error = pid->error - pid->last_error;
+	
 		if(abs(pid->error) < 20)
 		{
 			pid->Add_error += pid->error;
