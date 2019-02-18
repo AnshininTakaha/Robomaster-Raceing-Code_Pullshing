@@ -184,7 +184,7 @@ void SysTick_Handler(void)
 }*/
 
 /**
-  * @brief  USART1中断
+  * @brief  USART1中断，遥控器收发中断
   * @param  None
   * @retval None
   */
@@ -233,7 +233,7 @@ void USART3_IRQHandler(void)
 
 
 /**
-* @name USART6_IRQHandler
+* @name USART6_IRQHandler云台陀螺仪中断
 * @brief 陀螺仪中断
 * @param None
 * @retval       必要说明

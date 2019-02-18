@@ -43,7 +43,7 @@ void USART1_ReceiveTask(void *pvParameters)
    uint8_t usart1RxBuffer[20];
    while(1)
    {
-        xQueueReceive(xUsart1RxQueue, &usart1RxBuffer,portMAX_DELAY);
+        xQueueReceive(xUsart1RxQueue, &usart1RxBuffer, portMAX_DELAY);
         DR16_Process(usart1RxBuffer);
 		GPIO_ToggleBits(GPIOB,GPIO_Pin_5);
         

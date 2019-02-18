@@ -17,7 +17,7 @@ void TaskStart(void *pvParameters)
 		LED_Init();
 		Laser_Init();
     DR16_Init();
-    PC_MODE_Init();
+    PC_MODE_Init();//准备开始写
 
     IMU_Init();
     vTaskDelay(2000);
@@ -31,18 +31,14 @@ void TaskStart(void *pvParameters)
     /*任务初始化*/
     /*USART任务初始化*/
     USART_TaskCreate();
-	
     /*CAN任务初始化*/
     CAN_TaskCreate();
-	
 		/*延时启动*/
     vTaskDelay(2000);
-		
     /*控制类型任务初始化*/
     Control_TaskCreate();
-    
 
-
+    /*删除初始化的任务*/
     vTaskDelete(StartTaskHandler);
     taskEXIT_CRITICAL(); 
     
