@@ -1,0 +1,215 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.26.0.0
+Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: zhouzhanhong zhouzhanhong, zhouzhanhong, LIC=8MZAR-KQ644-49DG2-934H1-3MT3G-3B973
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.26.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.26.0.0
+Dialog DLL:      DCM.DLL V1.17.1.0
+Target DLL:      CMSIS_AGDI.dll V1.30.6.0
+Dialog DLL:      TCM.DLL V1.35.3.0
+ 
+<h2>Project:</h2>
+C:\Users\zhouzhanhong\Desktop\Anshinin RM_Infantry2\Project\MDK5\RoboMaster.uvprojx
+Project File Date:  02/18/2019
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'STM32F427IIHx'
+compiling main.c...
+compiling list.c...
+compiling croutine.c...
+compiling timers.c...
+..\..\FreeRTOS\timers.c(307): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xReturn );
+..\..\FreeRTOS\timers.c(396): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( ( xTimerPeriodInTicks > 0 ) );
+..\..\FreeRTOS\timers.c(422): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xTimer );
+..\..\FreeRTOS\timers.c(464): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( ( xTimerTaskHandle != NULL ) );
+..\..\FreeRTOS\timers.c(473): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xTimer );
+..\..\FreeRTOS\timers.c(483): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xTimer );
+..\..\FreeRTOS\timers.c(493): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xTimer );
+..\..\FreeRTOS\timers.c(520): warning:  #223-D: function "printf" declared implicitly
+  			configASSERT( xResult );
+..\..\FreeRTOS\timers.c(743): warning:  #223-D: function "printf" declared implicitly
+  				configASSERT( pxCallback );
+..\..\FreeRTOS\timers.c(801): warning:  #223-D: function "printf" declared implicitly
+  							configASSERT( xResult );
+..\..\FreeRTOS\timers.c(824): warning:  #223-D: function "printf" declared implicitly
+  					configASSERT( ( pxTimer->xTimerPeriodInTicks > 0 ) );
+..\..\FreeRTOS\timers.c(914): warning:  #223-D: function "printf" declared implicitly
+  				configASSERT( xResult );
+..\..\FreeRTOS\timers.c(986): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xTimer );
+..\..\FreeRTOS\timers.c(1007): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xTimer );
+..\..\FreeRTOS\timers.c(1023): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xTimer );
+..\..\FreeRTOS\timers.c(1067): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( xTimerQueue );
+..\..\FreeRTOS\timers.c: 16 warnings, 0 errors
+compiling queue.c...
+..\..\FreeRTOS\queue.c(283): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue );
+..\..\FreeRTOS\queue.c(392): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( uxQueueLength > ( UBaseType_t ) 0 );
+..\..\FreeRTOS\queue.c(577): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( pxMutex );
+..\..\FreeRTOS\queue.c(632): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( pxMutex );
+..\..\FreeRTOS\queue.c(701): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( uxMaxCount != 0 );
+..\..\FreeRTOS\queue.c(702): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( uxInitialCount <= uxMaxCount );
+..\..\FreeRTOS\queue.c(729): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue );
+..\..\FreeRTOS\queue.c(730): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( !( ( pvItemToQueue == NULL ) && ( pxQueue->uxItemSize != ( UBaseType_t ) 0U ) ) );
+..\..\FreeRTOS\queue.c(731): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( !( ( xCopyPosition == queueOVERWRITE ) && ( pxQueue->uxLength != 1 ) ) );
+..\..\FreeRTOS\queue.c(734): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( !( ( xTaskGetSchedulerState() == taskSCHEDULER_SUSPENDED ) && ( xTicksToWait != 0 ) ) );
+..\..\FreeRTOS\queue.c(927): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue );
+..\..\FreeRTOS\queue.c(928): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( !( ( pvItemToQueue == NULL ) && ( pxQueue->uxItemSize != ( UBaseType_t ) 0U ) ) );
+..\..\FreeRTOS\queue.c(929): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( !( ( xCopyPosition == queueOVERWRITE ) && ( pxQueue->uxLength != 1 ) ) );
+..\..\FreeRTOS\queue.c(1084): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue );
+..\..\FreeRTOS\queue.c(1088): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue->uxItemSize == 0 );
+..\..\FreeRTOS\queue.c(1093): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( !( ( pxQueue->uxQueueType == queueQUEUE_IS_MUTEX ) && ( pxQueue->pxMutexHolder != NULL ) ) );
+..\..\FreeRTOS\queue.c(1244): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue );
+..\..\FreeRTOS\queue.c(1245): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( !( ( pvBuffer == NULL ) && ( pxQueue->uxItemSize != ( UBaseType_t ) 0U ) ) );
+..\..\FreeRTOS\queue.c(1248): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( !( ( xTaskGetSchedulerState() == taskSCHEDULER_SUSPENDED ) && ( xTicksToWait != 0 ) ) );
+..\..\FreeRTOS\queue.c(1440): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue );
+..\..\FreeRTOS\queue.c(1441): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( !( ( pvBuffer == NULL ) && ( pxQueue->uxItemSize != ( UBaseType_t ) 0U ) ) );
+..\..\FreeRTOS\queue.c(1532): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue );
+..\..\FreeRTOS\queue.c(1533): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( !( ( pvBuffer == NULL ) && ( pxQueue->uxItemSize != ( UBaseType_t ) 0U ) ) );
+..\..\FreeRTOS\queue.c(1534): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue->uxItemSize != 0 ); /* Can't peek a semaphore. */
+..\..\FreeRTOS\queue.c(1583): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xQueue );
+..\..\FreeRTOS\queue.c(1601): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue );
+..\..\FreeRTOS\queue.c(1617): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xQueue );
+..\..\FreeRTOS\queue.c(1629): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( pxQueue );
+..\..\FreeRTOS\queue.c(1939): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xQueue );
+..\..\FreeRTOS\queue.c(1978): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xQueue );
+..\..\FreeRTOS\queue.c(2510): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( pxQueueSetContainer );
+..\..\FreeRTOS\queue.c(2511): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( pxQueueSetContainer->uxMessagesWaiting < pxQueueSetContainer->uxLength );
+..\..\FreeRTOS\queue.c: 32 warnings, 0 errors
+compiling stm32f4xx_it.c...
+compiling heap_4.c...
+..\..\FreeRTOS\portable\MemMang\heap_4.c(191): warning:  #223-D: function "printf" declared implicitly
+  					configASSERT( ( xWantedSize & portBYTE_ALIGNMENT_MASK ) == 0 );
+..\..\FreeRTOS\portable\MemMang\heap_4.c(236): warning:  #223-D: function "printf" declared implicitly
+  						configASSERT( ( ( ( size_t ) pxNewBlockLink ) & portBYTE_ALIGNMENT_MASK ) == 0 );
+..\..\FreeRTOS\portable\MemMang\heap_4.c(300): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( ( ( ( size_t ) pvReturn ) & ( size_t ) portBYTE_ALIGNMENT_MASK ) == 0 );
+..\..\FreeRTOS\portable\MemMang\heap_4.c(320): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( ( pxLink->xBlockSize & xBlockAllocatedBit ) != 0 );
+..\..\FreeRTOS\portable\MemMang\heap_4.c(321): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( pxLink->pxNextFreeBlock == NULL );
+..\..\FreeRTOS\portable\MemMang\heap_4.c: 5 warnings, 0 errors
+compiling event_groups.c...
+..\..\FreeRTOS\event_groups.c(215): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( ( uxBitsToWaitFor & eventEVENT_BITS_CONTROL_BYTES ) == 0 );
+..\..\FreeRTOS\event_groups.c(216): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( uxBitsToWaitFor != 0 );
+..\..\FreeRTOS\event_groups.c(219): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( !( ( xTaskGetSchedulerState() == taskSCHEDULER_SUSPENDED ) && ( xTicksToWait != 0 ) ) );
+..\..\FreeRTOS\event_groups.c(333): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xEventGroup );
+..\..\FreeRTOS\event_groups.c(334): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( ( uxBitsToWaitFor & eventEVENT_BITS_CONTROL_BYTES ) == 0 );
+..\..\FreeRTOS\event_groups.c(335): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( uxBitsToWaitFor != 0 );
+..\..\FreeRTOS\event_groups.c(338): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( !( ( xTaskGetSchedulerState() == taskSCHEDULER_SUSPENDED ) && ( xTicksToWait != 0 ) ) );
+..\..\FreeRTOS\event_groups.c(479): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xEventGroup );
+..\..\FreeRTOS\event_groups.c(480): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( ( uxBitsToClear & eventEVENT_BITS_CONTROL_BYTES ) == 0 );
+..\..\FreeRTOS\event_groups.c(541): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( xEventGroup );
+..\..\FreeRTOS\event_groups.c(542): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( ( uxBitsToSet & eventEVENT_BITS_CONTROL_BYTES ) == 0 );
+..\..\FreeRTOS\event_groups.c(637): warning:  #223-D: function "printf" declared implicitly
+  			configASSERT( pxTasksWaitingForBits->xListEnd.pxNext != ( ListItem_t * ) &( pxTasksWaitingForBits->xListEnd ) );
+..\..\FreeRTOS\event_groups.c: 12 warnings, 0 errors
+compiling tasks.c...
+compiling port.c...
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c(271): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( uxCriticalNesting == ~0UL );
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c(340): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( configMAX_SYSCALL_INTERRUPT_PRIORITY );
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c(345): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( portCPUID != portCORTEX_M7_r0p1_ID );
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c(346): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( portCPUID != portCORTEX_M7_r0p0_ID );
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c(371): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( ucMaxPriorityValue == ( configKERNEL_INTERRUPT_PRIORITY & ucMaxPriorityValue ) );
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c(425): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( uxCriticalNesting == 1000UL );
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c(441): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( ( portNVIC_INT_CTRL_REG & portVECTACTIVE_MASK ) == 0 );
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c(448): warning:  #223-D: function "printf" declared implicitly
+  	configASSERT( uxCriticalNesting );
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c(768): warning:  #223-D: function "printf" declared implicitly
+  			configASSERT( ucCurrentPriority >= ucMaxSysCallPriority );
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c(784): warning:  #223-D: function "printf" declared implicitly
+  		configASSERT( ( portAIRCR_REG & portPRIORITY_GROUP_MASK ) <= ulMaxPRIGROUPValue );
+..\..\FreeRTOS\portable\RVDS\ARM_CM4F\port.c: 10 warnings, 0 errors
+linking...
+Program Size: Code=2020 RO-data=460 RW-data=64 ZI-data=1768  
+FromELF: creating hex file...
+".\Objects\RoboMaster.axf" - 0 Error(s), 75 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.13.0.pack
+                Keil.STM32F4xx_DFP.2.13.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_STM32F427IIHx
+  C:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:07
+</pre>
+</body>
+</html>
