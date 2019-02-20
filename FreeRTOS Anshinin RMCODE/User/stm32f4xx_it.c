@@ -628,7 +628,7 @@ void TIM7_IRQHandler(void)
 		{
 //			GPIO_ToggleBits(GPIOF,GPIO_Pin_14);
 			DeviceFlash_Process();
-      DMR_counter = 0;
+      		DMR_counter = 0;
 		}
 		
 		
