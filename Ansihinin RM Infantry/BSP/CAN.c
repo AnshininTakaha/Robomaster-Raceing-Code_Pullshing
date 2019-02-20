@@ -7,7 +7,7 @@
 */
 void CAN1_QuickInit(void)
 {
-	    /*各种结构体使能*/
+	/*各种结构体使能*/
     GPIO_InitTypeDef GPIO_InitStructure;
     CAN_InitTypeDef CAN_InitStructure;
     CAN_FilterInitTypeDef  CAN_FilterInitStructure;

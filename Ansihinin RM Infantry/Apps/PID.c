@@ -465,7 +465,7 @@ float fuzzy_kd(float e, float ec)
 
     float ecRule[7]={-7.0,-5.0,-3.0,0.0,3.0,5.0,7.0};
 
-    float kdRule[4]={1.1386,1.198,1.5859,1.7032}; 
+    float kdRule[4]={1.1289,1.101,1.4862,1.6035}; 
     
     float eFuzzy[2]={0.0,0.0}; 
     float ecFuzzy[2]={0.0,0.0}; 
