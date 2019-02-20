@@ -38,4 +38,4 @@
 .\objects\analysis.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fmc.h
 .\objects\analysis.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h
 .\objects\analysis.o: ..\..\Apps\PID.h
-.\objects\analysis.o: ..\..\BSP\mathing.h
+.\objects\analysis.o: ..\..\BSP\BSP_MATH.h

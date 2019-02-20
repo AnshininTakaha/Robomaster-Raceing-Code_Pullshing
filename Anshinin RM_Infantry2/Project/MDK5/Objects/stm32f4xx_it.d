@@ -37,6 +37,7 @@
 .\objects\stm32f4xx_it.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dma2d.h
 .\objects\stm32f4xx_it.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fmc.h
 .\objects\stm32f4xx_it.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h
+.\objects\stm32f4xx_it.o: ..\..\Task\Task_CAN.h
 .\objects\stm32f4xx_it.o: ..\..\FreeRTOS\include\FreeRTOS.h
 .\objects\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\stm32f4xx_it.o: ..\..\FreeRTOS\include\FreeRTOSConfig.h

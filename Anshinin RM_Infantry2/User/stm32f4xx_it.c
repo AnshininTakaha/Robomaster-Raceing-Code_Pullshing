@@ -29,6 +29,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_it.h"
+#include "Task_CAN.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
@@ -230,7 +231,17 @@ void USART6_IRQHandler(void)
   */
 void CAN1_RX0_IRQHandler(void)
 	{
+      CanRxMsg CAN1Feedback_Msg;	
+	    BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+      if(CAN_GetITStatus(CAN1,CAN_IT_FMP0))
+      {
+          CAN_Receive(CAN1,CAN_FIFO0,&CAN1Feedback_Msg);
 
+          /*队列传输和是否存在最高优先级*/
+          xQueueSendFromISR(xCan1RxQueue,&CAN1Feedback_Msg,&xHigherPriorityTaskWoken);
+          portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+          CAN_ClearITPendingBit(CAN1, CAN_IT_FMP0);
+      }
 	}
 
 

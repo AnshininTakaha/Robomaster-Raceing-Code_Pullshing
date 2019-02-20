@@ -32,7 +32,9 @@
                 "${workspaceFolder}/Libraries/CMSIS/Include",
                 "${workspaceFolder}/Libraries/STM32F4xx_StdPeriph_Driver/inc",
                 "${workspaceFolder}/Task",
-                ""
+                "",
+                "${workspaceFolder}/BSP",
+                "${workspaceFolder}/Devices"
             ],
             "defines": [
                 "_DEBUG",

@@ -28,7 +28,11 @@
         "imu.h": "c",
         "gmc.h": "c",
         "shootcontrol.h": "c",
-        "tim.h": "c"
+        "tim.h": "c",
+        "task_init.h": "c",
+        "bsp_can.h": "c",
+        "bsp_nvic.h": "c",
+        "task_can.h": "c"
     },
     "C_Cpp.intelliSenseEngineFallback": "Disabled",
     "C_Cpp.errorSquiggles": "Enabled",

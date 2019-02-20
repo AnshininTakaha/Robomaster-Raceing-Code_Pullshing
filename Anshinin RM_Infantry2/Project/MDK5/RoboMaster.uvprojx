@@ -383,38 +383,101 @@
           <GroupName>User</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>Users.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\User\Users.h</FilePath>
-            </File>
-            <File>
               <FileName>stm32f4xx_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\stm32f4xx_it.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\main.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\User\stm32f4xx_conf.h</FilePath>
             </File>
+            <File>
+              <FileName>Users.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\User\Users.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Task</GroupName>
+          <Files>
+            <File>
+              <FileName>Task_Init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Task\Task_Init.c</FilePath>
+            </File>
+            <File>
+              <FileName>Task_CAN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Task\Task_CAN.c</FilePath>
+            </File>
+            <File>
+              <FileName>Task_Control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Task\Task_Control.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Devices</GroupName>
+          <Files>
+            <File>
+              <FileName>Device_Flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Devices\Device_Flash.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Apps</GroupName>
+          <Files>
+            <File>
+              <FileName>Analysis.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\Analysis.c</FilePath>
+            </File>
+            <File>
+              <FileName>PID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\PID.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>BSP</GroupName>
+          <Files>
+            <File>
+              <FileName>BSP_CAN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\BSP_CAN.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_LED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\BSP_LED.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_NVIC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\BSP_NVIC.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_MATH.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\BSP_MATH.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_LASER.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\BSP_LASER.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>FreeRTOS</GroupName>
@@ -1007,7 +1070,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -1078,38 +1141,101 @@
           <GroupName>User</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\User\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>Users.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\User\Users.h</FilePath>
-            </File>
-            <File>
               <FileName>stm32f4xx_it.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\stm32f4xx_it.c</FilePath>
+            </File>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\main.c</FilePath>
             </File>
             <File>
               <FileName>stm32f4xx_conf.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\User\stm32f4xx_conf.h</FilePath>
             </File>
+            <File>
+              <FileName>Users.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\User\Users.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Task</GroupName>
+          <Files>
+            <File>
+              <FileName>Task_Init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Task\Task_Init.c</FilePath>
+            </File>
+            <File>
+              <FileName>Task_CAN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Task\Task_CAN.c</FilePath>
+            </File>
+            <File>
+              <FileName>Task_Control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Task\Task_Control.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Devices</GroupName>
+          <Files>
+            <File>
+              <FileName>Device_Flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Devices\Device_Flash.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>Apps</GroupName>
+          <Files>
+            <File>
+              <FileName>Analysis.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\Analysis.c</FilePath>
+            </File>
+            <File>
+              <FileName>PID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Apps\PID.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>BSP</GroupName>
+          <Files>
+            <File>
+              <FileName>BSP_CAN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\BSP_CAN.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_LED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\BSP_LED.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_NVIC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\BSP_NVIC.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_MATH.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\BSP_MATH.c</FilePath>
+            </File>
+            <File>
+              <FileName>BSP_LASER.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\BSP\BSP_LASER.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>FreeRTOS</GroupName>
