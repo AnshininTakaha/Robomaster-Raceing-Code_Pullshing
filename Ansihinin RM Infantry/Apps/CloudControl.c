@@ -32,9 +32,7 @@ void Cloud_Init(void)
     PositionPID_Init(&Cloud.YAW_Speed_pid, -60.0f, 0.0f, -48.0, 4000, 0);
 		
 
-    /*Pitch*/
-    PositionPID_Init(&Cloud.Roll_Attitude_pid,-2.0f, 0.0f, 0.0f, 500, 0);
-    PositionPID_Init(&Cloud.Roll_Speed_pid, -60.0f, 0.0f, -40.0f, 4000, 0);
+    
 		
 	
 }
@@ -45,7 +43,7 @@ void Cloud_Judgement(void)
     float Cloud_delta_Yaw = 0.0f,Cloud_delta_Pitch = 0.0f;
 
     Cloud_delta_Yaw = rocket_Right.x/8;
-	Cloud_delta_Pitch = rocket_Right.y/7;
+		Cloud_delta_Pitch = rocket_Right.y/7;
 		
     Double_Cloud_process(Cloud_delta_Yaw,Cloud_delta_Pitch,GetSwitch_ModeCloud());
 }

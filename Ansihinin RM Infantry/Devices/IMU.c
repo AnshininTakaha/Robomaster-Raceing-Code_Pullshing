@@ -70,13 +70,13 @@ void GY_IMU_getInfo(uint8_t* buff, uint16_t dataLength, GY_IMU_t* dataOut)
 				return;
 			}
 			else
-            {
+      {
 				n++;
 			}
 			
 		}
 		else
-        {
+    {
 			n++;
 		}
 	}

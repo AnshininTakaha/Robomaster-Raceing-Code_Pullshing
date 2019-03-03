@@ -10,7 +10,7 @@
 
 #define Cloud_Yaw_Min				1850.0f
 #define Cloud_Yaw_Max				5950.0f
-#define Cloud_Yaw_Center		3895.0f
+#define Cloud_Yaw_Center		3895.0f	
 #define Cloud_Yaw_delta			(Cloud_Yaw_Max - Cloud_Yaw_Min)
 
 #define Cloud_Pitch_Min			3900.0f
@@ -30,7 +30,6 @@ typedef struct
 	float Filter_LPFfactor;
 	float Yaw_Raw;
 	float Yaw_LPF;
-	
 	float Pitch_Raw;
 	float Pitch_LPF;
 	
