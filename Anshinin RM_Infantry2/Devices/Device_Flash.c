@@ -81,20 +81,28 @@ void DeviceFlash(void)
     /* =========================== RM2006 of end =========================== */
     
     /* =========================== DR16 of begin =========================== */
-    
+    if(DR16.UpdateFrame < 5)
+	{
+		DR16.OFFLINE_SET = 1;
+	}
+	else
+	{
+		DR16.OFFLINE_SET = 0;
+	}
+	DR16.UpdateFrame = 0;
     /* =========================== DR16 of end =========================== */
     
     /* =========================== IMU of begin =========================== */
-    
+    /*ÍÓÂÝÒÇ*/
+	if(Cloud_IMU.UpdateFrame < 5)
+	{
+		Cloud_IMU.OFFLINE_SET = 1;
+	}
+	else
+	{
+		Cloud_IMU.OFFLINE_SET = 0;
+	}
+	Cloud_IMU.UpdateFrame = 0;
     /* =========================== IMU of end =========================== */
-    
-    
-    
-    
-	
-	
-	
-	
 
-	
 }

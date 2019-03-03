@@ -73,6 +73,7 @@
 
 #include "Users.h"
 #include "stm32f4xx.h"
+#include "stdio.h"
 //针对不同的编译器调用不同的stdint.h文件
 #if defined(__ICCARM__) || defined(__CC_ARM) || defined(__GNUC__)
     #include <stdint.h>

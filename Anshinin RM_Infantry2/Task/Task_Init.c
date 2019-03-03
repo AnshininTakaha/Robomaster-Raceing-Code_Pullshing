@@ -38,7 +38,7 @@ TaskHandle_t StartTaskHandler=NULL;
   */
 void TaskStart(void *pvParameters)
 {
-     /*设置中断优先级分组*/
+     /*设置中断优先级分组（中断嵌套）*/
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
 
 
@@ -52,19 +52,38 @@ void TaskStart(void *pvParameters)
     /*LED初始化*/
     LED_Init();
 
+    /*激光初始化*/
+    LASER_Init();
 
+    /*DR16初始化*/
+    DR16_Init();
+
+    /*IMU初始化*/
+    IMU_Init();
+
+    /*延时保证IMU数据稳定*/
+    vTaskDelay(200 / portTICK_RATE_MS);
     /* =========================== Init of end =========================== */
 
+    /* =========================== Form_Init of begin =========================== */
+    /*自瞄初始化*/
+    Aiming_Init();
+
+    /*底盘初始化*/
+    Chassis_Init();
+
+    /* =========================== Form_Init of end =========================== */
+    
     /* =========================== Task of begin =========================== */
     
     /*CAN任务创建*/
     CAN_TaskCreate();
 
+    /*USART任务创建*/
+    USART_TaskCreate();
+
     /*控制任务创建*/
     Control_TaskCreate();
-    
-
-    
 
     /* =========================== Task of end =========================== */
     

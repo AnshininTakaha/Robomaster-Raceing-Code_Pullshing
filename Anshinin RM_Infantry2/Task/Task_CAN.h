@@ -31,6 +31,9 @@
 #include "task.h"
 #include "queue.h"
 
+/*CAN函数总创建*/
+void CAN_TaskCreate(void);
+
 /* ====================== CAN_ReceiverTask of begin =========================== */
 /*CAN接受报文任务控制句柄*/
 extern TaskHandle_t CAN_ReceiveHandler;
@@ -42,8 +45,7 @@ extern QueueHandle_t xCan1RxQueue;
 void CAN1_ReceiveTask(void *pvParameters);
 /* ====================== CAN_ReceiverTask of end =========================== */
 
-/*CAN函数总创建*/
-void CAN_TaskCreate();
+
 
 
 #endif	// __TASK_CAN_H

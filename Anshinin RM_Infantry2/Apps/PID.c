@@ -79,29 +79,7 @@ uint32_t MaxOutput, uint32_t IntegralLimit)
     pid->IntegralLimit = IntegralLimit;
     pid->PWM = 0;
 }
-/**
-  * @Data    2019-02-19 16:36
-  * @brief   模糊增量式PID初始化
-  * @param   POSfuzzationpid_t *pid, float kp, float ki, float kd,\
-uint32_t MaxOutput, uint32_t IntegralLimit
-  * @retval  void
-  */
-void INCFuzzationPID_Init(INCfuzzationpid_t *pid, float kp, float ki, float kd,\
-uint32_t MaxOutput, uint32_t IntegralLimit)
-{
-    pid->Target_speed = 0;
-    pid->Measured_speed = 0;
-    pid->error = 0;
-    pid->last_error = 0;
-    pid->beforelast_error = 0;
-    pid->ec_error = 0;
-    pid->Kp = kp;
-    pid->Ki = ki;
-    pid->Kd = kd;
-    pid->MaxOutput = MaxOutput;
-    pid->IntegralLimit = IntegralLimit;
-    pid->PWM = 0;
-}
+
 /**
   * @Data    2019-02-19 16:06
   * @brief   模糊位置式PID初始化
@@ -113,8 +91,9 @@ uint32_t MaxOutput, uint32_t IntegralLimit)
   *          uint32_t IntegralLimit
   * @retval  void
   */
-void POSFuzzationPID_Init(POSfuzzationpid_t *pid, float kp, float ki, float kd,\
-uint32_t MaxOutput, uint32_t IntegralLimit)
+void POSFuzzationPID_Init(POSfuzzationpid_t *pid,float InputKpRule[4],\
+float InputKiRule[4],float InputKdRule[4],uint32_t MaxOutput, \
+int32_t IntegralLimit)
 {
     pid->Target = 0;
     pid->Measured = 0;
@@ -122,9 +101,17 @@ uint32_t MaxOutput, uint32_t IntegralLimit)
     pid->last_error = 0;
     pid->Add_error = 0;
     pid->ec_error = 0;
-    pid->Kp = kp;
-    pid->Ki = ki;
-    pid->Kd = kd;
+
+     for(int a=0;a<4;a++)
+    {
+        pid->KpRule[a] = InputKpRule[a];
+        pid->KiRule[a] = InputKiRule[a];
+        pid->KpRule[a] = InputKpRule[a];
+    }
+
+    pid->Kp = 0;
+    pid->Ki = 0;
+    pid->Kd = 0;
     pid->MaxOutput = MaxOutput;
     pid->IntegralLimit = IntegralLimit;
     pid->PWM = 0;
@@ -162,7 +149,7 @@ int IncrementalPID_Calculation(incrementalpid_t *pid, float target, float measur
     /*Ki限幅*/
     Ki_Limiting(&ki_output,pid->IntegralLimit);
 
-    /*Data累加*/
+    /*Data累加递进*/
     pid->data_u = (kp_output + ki_output + kd_output);
     pid->data_out = pid->data_lastout + pid->data_u;
 
@@ -226,46 +213,7 @@ int PositionPID_Calculation(positionpid_t *pid, float target, float measured)
     return pid->PWM;
 }
 
-/**
-  * @Data    2019-02-19 16:28
-  * @brief   模糊增量式PID计算公式
-  * @param   INCfuzzationpid_t *pid,float target, float measured
-  * @retval  int    
-  */
-int FuzzyPID_INCCalculation(INCfuzzationpid_t *pid,float target, float measured)
-{
-    float kp_output,ki_output,kd_output;
 
-    pid->Target_speed = (float)target;
-    pid->Measured_speed = (float)measured;
-    pid->error = pid->Target_speed - pid->Measured_speed;
-    pid->ec_error = pid->error - pid->last_error;
-    /*模糊推导*/
-    pid->Kp = fuzzy_kp(pid->error,pid->ec_error);
-    pid->Ki = fuzzy_ki(pid->error,pid->ec_error);
-    pid->Kd = fuzzy_kd(pid->error,pid->ec_error);
-    
-    /*消除抖动*/
-    if(abs_Calculation(pid->error) < 0.5f )
-    {
-        pid->error = 0.0f;
-    }
-
-    kp_output = pid->Kp * (pid->ec_error);
-    ki_output = pid->Ki * (pid->error);
-    kd_output = pid->Kd * (pid->error - 2*pid->last_error + pid->beforelast_error);
-    
-    Ki_Limiting(&ki_output,pid->IntegralLimit);
-
-    pid->PWM = (kp_output + ki_output + kd_output);
-
-    /*输出限幅*/
-    Output_Limting(&pid->PWM,pid->MaxOutput);
-
-    pid->last_error = pid ->error;
-
-    return pid->PWM;
-}
 
 
 /**
@@ -283,9 +231,9 @@ int FuzzationPID_POSCalculation(POSfuzzationpid_t * pid, float target, float mea
     pid->error = pid->Target - pid->Measured;
     pid->ec_error = pid->error - pid->last_error;
     /*模糊推导*/
-    pid->Kp = fuzzy_kp(pid->error,pid->ec_error);
-    pid->Ki = fuzzy_ki(pid->error,pid->ec_error);
-    pid->Kd = fuzzy_kd(pid->error,pid->ec_error);
+    pid->Kp = fuzzy_kp(pid->error,pid->ec_error,pid->KpRule);
+    pid->Ki = fuzzy_ki(pid->error,pid->ec_error,pid->KiRule);
+    pid->Kd = fuzzy_kd(pid->error,pid->ec_error,pid->KpRule);
 
     if(abs(pid->error) < 20)
 	{
@@ -322,7 +270,7 @@ int FuzzationPID_POSCalculation(POSfuzzationpid_t * pid, float target, float mea
   * @param   float e, float ec
   * @retval  float
   */
-float fuzzy_kp(float e, float ec)
+float fuzzy_kp(float e, float ec,float InputKpRule[4])
 {
     /*定义Kp的计算值*/
     float Kp_calcu;
@@ -337,7 +285,7 @@ float fuzzy_kp(float e, float ec)
     float ecRule[7]={-7.0,-5.0,-3.0,0.0,3.0,5.0,7.0};
 
     /*Kp 的模糊子集*/
-    float kpRule[4]={0.486,0.648,0.729,0.7873}; 
+    float kpRule[4]={InputKpRule[0],InputKpRule[1],InputKpRule[3],InputKpRule[4]};
 
     float eFuzzy[2]={0.0,0.0};//隶属于误差 E 的隶属程度
     float ecFuzzy[2]={0.0,0.0}; //隶属于误差变化率 EC 的隶属程度
@@ -454,7 +402,7 @@ float fuzzy_kp(float e, float ec)
   * @param   float e, float ec
   * @retval  float
   */
-float fuzzy_ki(float e, float ec)
+float fuzzy_ki(float e, float ec, float InputKiRule[4])
 {
     float Ki_calcu; 
     unsigned char num,pe,pec; 
@@ -463,7 +411,7 @@ float fuzzy_ki(float e, float ec)
 
     float ecRule[7]={-7.0,-5.0,-3.0,0.0,3.0,5.0,7.0};
 
-    float kiRule[4]={0.0,0.0,0.0,0.0}; 
+    float kiRule[4]={InputKiRule[0],InputKiRule[1],InputKiRule[2],InputKiRule[3]}; 
 
     float eFuzzy[2]={0.0,0.0}; 
     float ecFuzzy[2]={0.0,0.0}; 
@@ -569,7 +517,7 @@ float fuzzy_ki(float e, float ec)
   * @param   float e, float ec
   * @retval  float
   */
-float fuzzy_kd(float e, float ec)
+float fuzzy_kd(float e, float ec,float InputKdRule[4])
 {
     float Kd_calcu; 
     unsigned char num,pe,pec; 
@@ -577,7 +525,7 @@ float fuzzy_kd(float e, float ec)
 
     float ecRule[7]={-7.0,-5.0,-3.0,0.0,3.0,5.0,7.0};
 
-    float kdRule[4]={1.1289,1.101,1.4862,1.6035}; 
+    float kdRule[4]={InputKdRule[0],InputKdRule[1],InputKdRule[2],InputKdRule[3]}; 
     
     float eFuzzy[2]={0.0,0.0}; 
     float ecFuzzy[2]={0.0,0.0}; 

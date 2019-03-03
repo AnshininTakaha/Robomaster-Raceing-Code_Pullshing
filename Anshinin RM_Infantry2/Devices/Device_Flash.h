@@ -27,7 +27,8 @@
 #define __DEVICE_FLASH_H 
 
 #include "Analysis.h"
-
+#include "DR16.h"
+#include "IMU.h"
 /*Ö¡ÂÊË¢ÐÂ*/
 void DeviceFlash(void);
 

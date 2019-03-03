@@ -41,6 +41,7 @@
 .\objects\task_can.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\task_can.o: ..\..\FreeRTOS\include\FreeRTOSConfig.h
 .\objects\task_can.o: ..\..\User\Users.h
+.\objects\task_can.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\task_can.o: ..\..\FreeRTOS\include\projdefs.h
 .\objects\task_can.o: ..\..\FreeRTOS\include\portable.h
 .\objects\task_can.o: ..\..\FreeRTOS\include\deprecated_definitions.h

@@ -41,6 +41,7 @@
 .\objects\timers.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dma2d.h
 .\objects\timers.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fmc.h
 .\objects\timers.o: ..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h
+.\objects\timers.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\timers.o: ..\..\FreeRTOS\include\projdefs.h
 .\objects\timers.o: ..\..\FreeRTOS\include\portable.h
 .\objects\timers.o: ..\..\FreeRTOS\include\deprecated_definitions.h

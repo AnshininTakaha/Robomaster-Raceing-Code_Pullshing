@@ -43,6 +43,23 @@ void Devices_Task(void *pvParameters);
 /* =========================== DeviceFlash of end =========================== */
 
 
+/* =========================== LED_FLASHING of begin =========================== */
+ /*流水灯控制句柄*/ 
+extern TaskHandle_t LED_LightHandler;
+/*LED刷新任务*/
+void LED_LightTask(void *pvParameters);
+/* =========================== LED_FLASHING of end =========================== */
+
+
+/* =========================== Chassis of begin =========================== */
+/*底盘控制任务句柄*/  
+extern TaskHandle_t Chassical_Handler;
+
+/*底盘任务控制函数*/
+void Chassical_Task(void *pvParameters);
+/* =========================== Chassis of end =========================== */
+
+
 
 
 

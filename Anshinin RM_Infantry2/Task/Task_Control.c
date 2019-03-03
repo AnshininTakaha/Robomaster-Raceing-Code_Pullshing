@@ -30,7 +30,27 @@
 /* =========================== DeviceFlash of begin =========================== */
 /*帧率刷新控制句柄*/
 static TaskHandle_t Device_FlashHandler = NULL;
+
+/*帧率刷新控制函数*/
+void Devices_Task(void *pvParameters);
 /* =========================== DeviceFlash of end =========================== */
+
+/* =========================== LED_FLASHING of begin =========================== */
+ /*流水灯控制句柄*/ 
+static TaskHandle_t LED_LightHandler = NULL;
+
+/*流水灯刷新控制函数*/
+void LED_LightTask(void *pvParameters);
+/* =========================== LED_FLASHING of end =========================== */
+
+/* =========================== Chassis of begin =========================== */
+/*底盘控制任务句柄*/  
+static TaskHandle_t Chassical_Handler = NULL;
+
+/*底盘任务控制函数*/
+void Chassical_Task(void *pvParameters);
+/* =========================== Chassis of end =========================== */
+
 
 
 /**
@@ -42,11 +62,27 @@ static TaskHandle_t Device_FlashHandler = NULL;
 void Control_TaskCreate(void)
 {
     xTaskCreate(Devices_Task,           /* 任务函数  */        
-				"Devices_Task",         /* 任务名    */      
-				128,       			      /* 任务栈大小*/  
-				NULL,                 /* 任务参数  */    
-				2,       			        /* 任务优先级*/
-				&Device_FlashHandler);   /* 任务句柄  */
+				        "Devices_Task",         /* 任务名    */      
+				        128,       			      /* 任务栈大小*/  
+				        NULL,                 /* 任务参数  */    
+				        2,       			        /* 任务优先级*/
+				        &Device_FlashHandler);   /* 任务句柄  */
+
+    xTaskCreate(LED_LightTask,           /* 任务函数  */        
+								"LED_LightTask",         /* 任务名    */      
+								128,       			      /* 任务栈大小*/  
+								NULL,                 /* 任务参数  */    
+								2,       			        /* 任务优先级*/
+								&LED_LightHandler);   /* 任务句柄  */
+
+    xTaskCreate(Chassical_Task,           /* 任务函数  */        
+								"Chassical_Task",         /* 任务名    */      
+								128,       			      /* 任务栈大小*/  
+								NULL,                 /* 任务参数  */    
+								2,       			        /* 任务优先级*/
+								&Chassical_Handler);   /* 任务句柄  */
+
+    
 }
 
 /**
@@ -61,7 +97,74 @@ void Devices_Task(void *pvParameters)
     portTickType CurrentControlTick = 0;
 	while(1)
 	{
+    /*设备刷新中断*/
 		DeviceFlash();
 		vTaskDelayUntil(&CurrentControlTick,200 / portTICK_RATE_MS);
 	}
+}
+
+
+/**
+  * @Data    2019-03-01 17:04
+  * @brief   流水灯刷新控制函数
+  * @param   void *pvParameters
+  * @retval  void
+  */
+void LED_LightTask(void *pvParameters)
+{
+  /*创建时间片计算变量*/
+  portTickType CurrentControlTick = 0;
+  while(1)
+  {
+    GPIO_ResetBits(GPIOE,GPIO_Pin_9);
+		vTaskDelayUntil(&CurrentControlTick,5 / portTICK_RATE_MS);
+		GPIO_ResetBits(GPIOE,GPIO_Pin_10);
+		vTaskDelayUntil(&CurrentControlTick,10 / portTICK_RATE_MS);
+		GPIO_ResetBits(GPIOE,GPIO_Pin_11);
+		vTaskDelayUntil(&CurrentControlTick,15 / portTICK_RATE_MS);
+		GPIO_ResetBits(GPIOE,GPIO_Pin_12);
+		vTaskDelayUntil(&CurrentControlTick,20 / portTICK_RATE_MS);
+		GPIO_ResetBits(GPIOE,GPIO_Pin_13);
+		vTaskDelayUntil(&CurrentControlTick,25 / portTICK_RATE_MS);
+		GPIO_ResetBits(GPIOE,GPIO_Pin_14);
+		vTaskDelayUntil(&CurrentControlTick,30 / portTICK_RATE_MS);
+		GPIO_ResetBits(GPIOE,GPIO_Pin_15);
+    vTaskDelayUntil(&CurrentControlTick,35 / portTICK_RATE_MS);
+
+    GPIO_SetBits(GPIOE,GPIO_Pin_9);
+		vTaskDelayUntil(&CurrentControlTick,5 / portTICK_RATE_MS);
+		GPIO_SetBits(GPIOE,GPIO_Pin_10);
+		vTaskDelayUntil(&CurrentControlTick,10 / portTICK_RATE_MS);
+		GPIO_SetBits(GPIOE,GPIO_Pin_11);
+		vTaskDelayUntil(&CurrentControlTick,15 / portTICK_RATE_MS);
+		GPIO_SetBits(GPIOE,GPIO_Pin_12);
+		vTaskDelayUntil(&CurrentControlTick,20 / portTICK_RATE_MS);
+		GPIO_SetBits(GPIOE,GPIO_Pin_13);
+		vTaskDelayUntil(&CurrentControlTick,25 / portTICK_RATE_MS);
+		GPIO_SetBits(GPIOE,GPIO_Pin_14);
+		vTaskDelayUntil(&CurrentControlTick,30 / portTICK_RATE_MS);
+		GPIO_SetBits(GPIOE,GPIO_Pin_15);
+    vTaskDelayUntil(&CurrentControlTick,35 / portTICK_RATE_MS);
+
+    vTaskDelayUntil(&CurrentControlTick,1100 / portTICK_RATE_MS);
+  }
+}
+
+/**
+  * @Data    2019-03-01 17:05
+  * @brief   底盘任务控制函数
+  * @param   void *pvParameters
+  * @retval  void
+  */
+void Chassical_Task(void *pvParameters)
+{
+  /*创建时间片计算变量*/
+  portTickType CurrentControlTick = 0;
+  while(1)
+  {
+    /*底盘处理中断*/
+    Chassis_Judgement(Chassis.RCmodeswitch);
+    GPIO_ToggleBits(GPIOE,GPIO_Pin_13);
+    vTaskDelayUntil(&CurrentControlTick,10 / portTICK_RATE_MS);
+  }
 }

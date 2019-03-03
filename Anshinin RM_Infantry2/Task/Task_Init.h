@@ -27,20 +27,37 @@
 #define __TASK_INIT_H 
 
 /*FreeRTOS相关头文件*/
+#include "Task_CAN.h"
+#include "Task_USART.h"
+#include "Task_Control.h"
+
+#include "Chassis_Control.h"
+#include "Aiming_Control.h"
+
+ #include "DR16.h"
+
+#include "BSP_CAN.h"
+#include "BSP_LED.h"
+#include "BSP_USART.h"
+#include "BSP_LASER.h"
+
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
 
-#include "Task_CAN.h"
-#include "Task_Control.h"
 
-#include "BSP_CAN.h"
-#include "BSP_LED.h"
+/* =========================== Start_Task of begin =========================== */
 /*任务函数*/
 void TaskStart(void *pvParameters);
 
 /*调用的句柄*/
-extern TaskHandle_t StartTaskHandler;
+extern TaskHandle_t StartTaskHandler;  
+/* =========================== Start_Task of end =========================== */
+
+
+
+
+
 
 #endif	// __TASK_INIT_H
 /*-----------------------------------file of end------------------------------*/

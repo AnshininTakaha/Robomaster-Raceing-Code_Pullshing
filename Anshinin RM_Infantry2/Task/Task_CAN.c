@@ -32,7 +32,7 @@ static TaskHandle_t CAN_ReceiveHandler = NULL;/*CAN接受报文任务控制句柄*/
 QueueHandle_t xCan1RxQueue = NULL;/*CAN接受报文任务队列*/
 /* ====================== CAN_ReceiverTask of end =========================== */
 
-void CAN_TaskCreate()
+void CAN_TaskCreate(void)
 {
     /*队列创建*/
     xCan1RxQueue = xQueueCreate(20,sizeof(CanRxMsg));

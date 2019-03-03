@@ -29,7 +29,11 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_it.h"
+#include "Task_Init.h"
 #include "Task_CAN.h"
+#include "Task_USART.h"
+#include "Task_Control.h"
+#include "Aiming_Control.h" 
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
@@ -186,20 +190,54 @@ void SysTick_Handler(void)
   * @retval None
   */
 void USART1_IRQHandler(void)
-	{
+{
+  /*储存判断是否有最高优先级的任务的状态位*/
+  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
-	}
+  if(USART_GetITStatus(USART1, USART_IT_IDLE) != RESET)
+	  {
+		/*关闭DMA*/
+		DMA_Cmd(USART1_RX_DMA_STREAM, DISABLE);
+		  /*获取DMAbuff剩余大小，是否匹配*/
+    if (DMA_GetCurrDataCounter(USART1_RX_DMA_STREAM) == 2)
+      {
+        /*从队列里面发送数据*/
+        xQueueSendFromISR(xUsart1RxQueue,&DR16_Buff,&xHigherPriorityTaskWoken);
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+      }
+		
+		/*打开DMA*/
+		DMA_Cmd(USART1_RX_DMA_STREAM, ENABLE);
+		/*清除空闲中断标志位*/
+		(void)USART1->DR;
+		(void)USART1->SR;
+    }
+}
 
 
 /**
-  * @brief  USART2涓?鏂?鏈嶅姟鍑芥暟銆愯?佸垽绯荤粺銆?
+  * @brief  USART2自瞄发送接收终端
   * @param  None
   * @retval None
   */
 void USART2_IRQHandler(void)
-	{
+{
+  /*储存判断是否有最高优先级的任务的状态位*/
+  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+  if(USART_GetITStatus(USART2,USART_IT_IDLE) != RESET)
+  {
+    DMA_Cmd(USART2_RX_DMA_STREAM, DISABLE);
+    /*加快中断速度，把判断都移动到任务里面去*/
+    xQueueSendFromISR(xUsart2RxQueue,&CV_RXBUFF,&xHigherPriorityTaskWoken);
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    DMA_SetCurrDataCounter(USART2_RX_DMA_STREAM,8);
+		DMA_Cmd(USART2_RX_DMA_STREAM, ENABLE);
 
-	}
+    /*清楚USART2的中断标志位*/
+    (void)USART2->DR;
+	  (void)USART2->SR;
+  }
+}
 
 
 //uint16_t s_U3dataLength = 0;
@@ -210,7 +248,7 @@ void USART3_IRQHandler(void)
 
 
 /**
-* @name USART6_IRQHandler云台陀螺仪中断
+* @name USART6云台陀螺仪中断
 * @brief 陀螺仪中断
 * @param None
 * @retval       必要说明
@@ -218,9 +256,21 @@ void USART3_IRQHandler(void)
 uint16_t s_U6dataLength = 0;
 void USART6_IRQHandler(void)
 {
-
-	
-	
+  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+	if(USART_GetITStatus(USART6,USART_IT_IDLE)!= RESET)
+	{
+		DMA_Cmd(USART6_RX_DMA_STREAM,DISABLE);
+		uint16_t DMA_Counter = DMA_GetCurrDataCounter(USART6_RX_DMA_STREAM);
+		s_U6dataLength = GY_IMU_BUFFSIZE - DMA_Counter;
+		xQueueSendFromISR(xUsart6RxQueue,&Cloud_GY_IMU_RXBUFF, &xHigherPriorityTaskWoken);
+		portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+		
+		DMA_SetCurrDataCounter(USART6_RX_DMA_STREAM,GY_IMU_BUFFSIZE);
+		DMA_Cmd(USART6_RX_DMA_STREAM, ENABLE);
+		
+		(void)USART6->DR;
+	  (void)USART6->SR;
+	}	
 }
 
 

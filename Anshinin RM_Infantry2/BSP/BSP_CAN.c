@@ -129,7 +129,8 @@ void CAN1_QuickInit(void)
   *          uint8_t data[8]      ´¢´æµÄÊý¾Ý
   * @retval  void
   */
-void CAN_SendData(CAN_TypeDef* CANx, uint8_t id_type, uint32_t id, uint8_t data[8])
+void CAN_SendData(CAN_TypeDef* CANx, uint8_t id_type, uint32_t id, \
+uint8_t data[8])
 { 
     CanTxMsg TxMessage;
 
@@ -166,4 +167,7 @@ void CAN_SendData(CAN_TypeDef* CANx, uint8_t id_type, uint32_t id, uint8_t data[
  
 
 
+
  
+
+

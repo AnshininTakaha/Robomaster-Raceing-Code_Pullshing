@@ -41,6 +41,7 @@
 .\objects\bsp_can.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\bsp_can.o: ..\..\FreeRTOS\include\FreeRTOSConfig.h
 .\objects\bsp_can.o: ..\..\User\Users.h
+.\objects\bsp_can.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\bsp_can.o: ..\..\FreeRTOS\include\projdefs.h
 .\objects\bsp_can.o: ..\..\FreeRTOS\include\portable.h
 .\objects\bsp_can.o: ..\..\FreeRTOS\include\deprecated_definitions.h
